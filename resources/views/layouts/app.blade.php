@@ -26,12 +26,12 @@
 <body>
     <div class="page">
         <!-- Sidebar -->
-        <aside class="navbar navbar-vertical navbar-expand-md navbar-dark" data-bs-theme="dark">
+        <aside class="navbar navbar-vertical navbar-expand-md bg-white">
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar-menu">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-brand navbar-brand-autodark">
+                <div class="navbar-brand">
                     <a href="{{ url('/') }}">
                         @include('components.logo')
                     </a>
@@ -45,45 +45,6 @@
                                     <i class="ti ti-home"></i>
                                 </span>
                                 <span class="nav-link-title">Inicio</span>
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="false">
-                                <span class="nav-link-icon">
-                                    <i class="ti ti-package"></i>
-                                </span>
-                                <span class="nav-link-title">Productos</span>
-                            </a>
-                            <div class="dropdown-menu">
-                                <div class="dropdown-menu-columns">
-                                    <div class="dropdown-menu-column">
-                                        <a class="dropdown-item" href="#">
-                                            Lista de Productos
-                                        </a>
-                                        <a class="dropdown-item" href="#">
-                                            Categorías
-                                        </a>
-                                        <a class="dropdown-item" href="#">
-                                            Inventario
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span class="nav-link-icon">
-                                    <i class="ti ti-shopping-cart"></i>
-                                </span>
-                                <span class="nav-link-title">Ventas</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span class="nav-link-icon">
-                                    <i class="ti ti-users"></i>
-                                </span>
-                                <span class="nav-link-title">Clientes</span>
                             </a>
                         </li>
                         @canany(['ver-usuarios', 'ver-roles', 'ver-permisos', 'gestionar-configuracion'])
