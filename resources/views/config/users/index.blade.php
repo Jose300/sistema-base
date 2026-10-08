@@ -217,3 +217,9 @@
 </div>
 
 @endsection
+
+@push('js')
+<script>
+    window.phoneAreaDictionary = @json(\App\Helpers\PhoneHelper::getAreaCodes());
+</script>
+@endpush

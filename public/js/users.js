@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Hide password hint for new users
             document.getElementById('password-hint').classList.add('d-none');
             
+            updateModalAreaCodes('+58', '');
             userModal.show();
         });
     }
@@ -64,10 +65,13 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 userForm.name.value = data.usuario.name;
                 userForm.email.value = data.usuario.email;
+                const country = data.usuario.country_code || '+58';
+                const area = data.usuario.area_code || '';
                 if (userForm.country_code) {
-                    userForm.country_code.value = data.usuario.country_code || '+58';
+                    userForm.country_code.value = country;
                 }
-                if (userForm.area_code) userForm.area_code.value = data.usuario.area_code || '';
+                updateModalAreaCodes(country, area);
+                updateModalFlag();
                 if (userForm.phone) userForm.phone.value = data.usuario.phone || '';
                 userForm.role.value = data.role;
                 userForm.status.value = data.usuario.status;
@@ -197,16 +201,53 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('modal-user').addEventListener('shown.bs.modal', updateStatusColor);
     }
 
-    // Handle Country Code Flag Change in Modal
+    // Handle Country Code & Area Code Dynamic Population in Modal
     const userCountrySelect = document.getElementById('user-country-code');
     const userModalFlagIcon = document.getElementById('user-modal-flag-icon');
-    if (userCountrySelect && userModalFlagIcon) {
-        const updateModalFlag = () => {
-            const opt = userCountrySelect.options[userCountrySelect.selectedIndex];
-            const iso = opt ? opt.getAttribute('data-iso') : 've';
-            userModalFlagIcon.className = 'flag flag-xs flag-country-' + (iso || 've');
-        };
-        userCountrySelect.addEventListener('change', updateModalFlag);
+
+    function updateModalFlag() {
+        if (!userCountrySelect || !userModalFlagIcon) return;
+        const opt = userCountrySelect.options[userCountrySelect.selectedIndex];
+        const iso = opt ? opt.getAttribute('data-iso') : 've';
+        userModalFlagIcon.className = 'flag flag-xs flag-country-' + (iso || 've');
+    }
+
+    function updateModalAreaCodes(countryCode, selectedAreaCode = '') {
+        const userAreaSelect = document.getElementById('user-area-code');
+        if (!userAreaSelect) return;
+        
+        const dictionary = window.phoneAreaDictionary || {};
+        const areas = dictionary[countryCode] || {};
+        userAreaSelect.innerHTML = '<option value="">-- Seleccionar --</option>';
+        
+        let found = false;
+        const targetVal = String(selectedAreaCode || '').trim();
+
+        for (const [val, label] of Object.entries(areas)) {
+            const opt = document.createElement('option');
+            opt.value = val;
+            opt.textContent = label;
+            if (targetVal && (String(val) === targetVal || String(val) === '0' + targetVal || '0' + String(val) === targetVal)) {
+                opt.selected = true;
+                found = true;
+            }
+            userAreaSelect.appendChild(opt);
+        }
+        
+        if (targetVal && !found) {
+            const customOpt = document.createElement('option');
+            customOpt.value = targetVal;
+            customOpt.textContent = targetVal;
+            customOpt.selected = true;
+            userAreaSelect.appendChild(customOpt);
+        }
+    }
+
+    if (userCountrySelect) {
+        userCountrySelect.addEventListener('change', function() {
+            updateModalFlag();
+            updateModalAreaCodes(this.value, userForm.area_code ? userForm.area_code.value : '');
+        });
         document.getElementById('modal-user')?.addEventListener('shown.bs.modal', updateModalFlag);
     }
 });
