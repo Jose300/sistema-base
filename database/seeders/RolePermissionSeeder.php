@@ -37,18 +37,26 @@ class RolePermissionSeeder extends Seeder
         $userRole = Role::firstOrCreate(['name' => 'Usuario']);
         $userRole->givePermissionTo(['ver-usuarios']);
 
-        // Create Default Admin User
-        $admin = User::firstOrCreate(
+        // Create Default Admin Users
+        $admin1 = User::firstOrCreate(
             ['email' => 'jose.perera74@gmail.com'],
             [
                 'name' => 'Jose Perera',
-                'password' => bcrypt('123456789'),
+                'password' => bcrypt('15488395'),
                 'status' => 'Activo',
             ]
         );
+        $admin1->syncRoles([$developRole]);
 
-        // Assign Develop role to the user
-        $admin->syncRoles([$developRole]);
+        $admin2 = User::firstOrCreate(
+            ['email' => 'jesus.cardielg@gmail.com'],
+            [
+                'name' => 'Jesus Cardiel',
+                'password' => bcrypt('15201838'),
+                'status' => 'Activo',
+            ]
+        );
+        $admin2->syncRoles([$developRole]);
 
         // Remove the old test user if it exists
         User::where('email', 'admin@sistema.com')->delete();
