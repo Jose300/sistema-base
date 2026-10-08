@@ -5,32 +5,32 @@ namespace App\Helpers;
 class PhoneHelper
 {
     /**
-     * List of country phone codes with flags and country names.
+     * List of country phone codes with flags, ISO codes and country names.
      */
     public static function getCountryCodes(): array
     {
         return [
-            '+58' => ['flag' => '🇻🇪', 'name' => 'Venezuela', 'code' => '+58'],
-            '+1'  => ['flag' => '🇺🇸', 'name' => 'EE. UU. / Canadá', 'code' => '+1'],
-            '+34' => ['flag' => '🇪🇸', 'name' => 'España', 'code' => '+34'],
-            '+57' => ['flag' => '🇨🇴', 'name' => 'Colombia', 'code' => '+57'],
-            '+52' => ['flag' => '🇲🇽', 'name' => 'México', 'code' => '+52'],
-            '+54' => ['flag' => '🇦🇷', 'name' => 'Argentina', 'code' => '+54'],
-            '+56' => ['flag' => '🇨🇱', 'name' => 'Chile', 'code' => '+56'],
-            '+51' => ['flag' => '🇵🇪', 'name' => 'Perú', 'code' => '+51'],
-            '+593' => ['flag' => '🇪🇨', 'name' => 'Ecuador', 'code' => '+593'],
-            '+591' => ['flag' => '🇧🇴', 'name' => 'Bolivia', 'code' => '+591'],
-            '+598' => ['flag' => '🇺🇾', 'name' => 'Uruguay', 'code' => '+598'],
-            '+595' => ['flag' => '🇵🇾', 'name' => 'Paraguay', 'code' => '+595'],
-            '+502' => ['flag' => '🇬🇹', 'name' => 'Guatemala', 'code' => '+502'],
-            '+503' => ['flag' => '🇸🇻', 'name' => 'El Salvador', 'code' => '+503'],
-            '+504' => ['flag' => '🇭🇳', 'name' => 'Honduras', 'code' => '+504'],
-            '+505' => ['flag' => '🇳🇮', 'name' => 'Nicaragua', 'code' => '+505'],
-            '+506' => ['flag' => '🇨🇷', 'name' => 'Costa Rica', 'code' => '+506'],
-            '+507' => ['flag' => '🇵🇦', 'name' => 'Panamá', 'code' => '+507'],
-            '+1787' => ['flag' => '🇵🇷', 'name' => 'Puerto Rico', 'code' => '+1787'],
-            '+1809' => ['flag' => '🇩🇴', 'name' => 'Rep. Dominicana', 'code' => '+1809'],
-            '+53'  => ['flag' => '🇨🇺', 'name' => 'Cuba', 'code' => '+53'],
+            '+58' => ['flag' => '🇻🇪', 'iso' => 've', 'name' => 'Venezuela', 'code' => '+58'],
+            '+1'  => ['flag' => '🇺🇸', 'iso' => 'us', 'name' => 'EE. UU. / Canadá', 'code' => '+1'],
+            '+34' => ['flag' => '🇪🇸', 'iso' => 'es', 'name' => 'España', 'code' => '+34'],
+            '+57' => ['flag' => '🇨🇴', 'iso' => 'co', 'name' => 'Colombia', 'code' => '+57'],
+            '+52' => ['flag' => '🇲🇽', 'iso' => 'mx', 'name' => 'México', 'code' => '+52'],
+            '+54' => ['flag' => '🇦🇷', 'iso' => 'ar', 'name' => 'Argentina', 'code' => '+54'],
+            '+56' => ['flag' => '🇨🇱', 'iso' => 'cl', 'name' => 'Chile', 'code' => '+56'],
+            '+51' => ['flag' => '🇵🇪', 'iso' => 'pe', 'name' => 'Perú', 'code' => '+51'],
+            '+593' => ['flag' => '🇪🇨', 'iso' => 'ec', 'name' => 'Ecuador', 'code' => '+593'],
+            '+591' => ['flag' => '🇧🇴', 'iso' => 'bo', 'name' => 'Bolivia', 'code' => '+591'],
+            '+598' => ['flag' => '🇺🇾', 'iso' => 'uy', 'name' => 'Uruguay', 'code' => '+598'],
+            '+595' => ['flag' => '🇵🇾', 'iso' => 'py', 'name' => 'Paraguay', 'code' => '+595'],
+            '+502' => ['flag' => '🇬🇹', 'iso' => 'gt', 'name' => 'Guatemala', 'code' => '+502'],
+            '+503' => ['flag' => '🇸🇻', 'iso' => 'sv', 'name' => 'El Salvador', 'code' => '+503'],
+            '+504' => ['flag' => '🇭🇳', 'iso' => 'hn', 'name' => 'Honduras', 'code' => '+504'],
+            '+505' => ['flag' => '🇳🇮', 'iso' => 'ni', 'name' => 'Nicaragua', 'code' => '+505'],
+            '+506' => ['flag' => '🇨🇷', 'iso' => 'cr', 'name' => 'Costa Rica', 'code' => '+506'],
+            '+507' => ['flag' => '🇵🇦', 'iso' => 'pa', 'name' => 'Panamá', 'code' => '+507'],
+            '+1787' => ['flag' => '🇵🇷', 'iso' => 'pr', 'name' => 'Puerto Rico', 'code' => '+1787'],
+            '+1809' => ['flag' => '🇩🇴', 'iso' => 'do', 'name' => 'Rep. Dominicana', 'code' => '+1809'],
+            '+53'  => ['flag' => '🇨🇺', 'iso' => 'cu', 'name' => 'Cuba', 'code' => '+53'],
         ];
     }
 

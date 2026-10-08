@@ -196,4 +196,17 @@ document.addEventListener('DOMContentLoaded', function() {
         // Also update when modal opens (needs a small delay or event hook)
         document.getElementById('modal-user').addEventListener('shown.bs.modal', updateStatusColor);
     }
+
+    // Handle Country Code Flag Change in Modal
+    const userCountrySelect = document.getElementById('user-country-code');
+    const userModalFlagIcon = document.getElementById('user-modal-flag-icon');
+    if (userCountrySelect && userModalFlagIcon) {
+        const updateModalFlag = () => {
+            const opt = userCountrySelect.options[userCountrySelect.selectedIndex];
+            const iso = opt ? opt.getAttribute('data-iso') : 've';
+            userModalFlagIcon.className = 'flag flag-country-' + (iso || 've');
+        };
+        userCountrySelect.addEventListener('change', updateModalFlag);
+        document.getElementById('modal-user')?.addEventListener('shown.bs.modal', updateModalFlag);
+    }
 });

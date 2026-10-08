@@ -133,13 +133,22 @@
 
                                 <div class="col-md-3">
                                     <label class="form-label">Cód. País</label>
-                                    <select name="country_code" id="profile-country-code" class="form-select @error('country_code') is-invalid @enderror">
-                                        @foreach(\App\Helpers\PhoneHelper::getCountryCodes() as $code => $country)
-                                            <option value="{{ $code }}" {{ old('country_code', $user->country_code ?? '+58') == $code ? 'selected' : '' }}>
-                                                {{ $country['flag'] }} {{ $code }} ({{ $country['name'] }})
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                    <div class="input-group">
+                                        @php
+                                            $selectedCode = old('country_code', $user->country_code ?? '+58');
+                                            $selectedIso = \App\Helpers\PhoneHelper::getCountryCodes()[$selectedCode]['iso'] ?? 've';
+                                        @endphp
+                                        <span class="input-group-text bg-white px-2">
+                                            <span class="flag flag-country-{{ $selectedIso }}" id="profile-flag-icon"></span>
+                                        </span>
+                                        <select name="country_code" id="profile-country-code" class="form-select @error('country_code') is-invalid @enderror">
+                                            @foreach(\App\Helpers\PhoneHelper::getCountryCodes() as $code => $country)
+                                                <option value="{{ $code }}" data-iso="{{ $country['iso'] }}" {{ $selectedCode == $code ? 'selected' : '' }}>
+                                                    {{ $code }} ({{ $country['name'] }})
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                     @error('country_code')
                                         <div class="invalid-feedback d-block">{{ $message }}</div>
                                     @enderror
@@ -247,7 +256,17 @@
         const areaSelect = document.getElementById('profile-area-code');
 
         if (countrySelect && areaSelect) {
+            const updateFlag = function() {
+                const selectedOpt = countrySelect.options[countrySelect.selectedIndex];
+                const iso = selectedOpt ? selectedOpt.getAttribute('data-iso') : 've';
+                const flagIcon = document.getElementById('profile-flag-icon');
+                if (flagIcon) {
+                    flagIcon.className = 'flag flag-country-' + (iso || 've');
+                }
+            };
+
             countrySelect.addEventListener('change', function() {
+                updateFlag();
                 const country = this.value;
                 const areas = phoneAreaDictionary[country] || {};
                 const currentVal = areaSelect.value;
