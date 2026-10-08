@@ -17,6 +17,10 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
+    // Perfil de usuario
+    Route::get('/perfil', [App\Http\Controllers\ProfileController::class, 'index'])->name('perfil.index');
+    Route::put('/perfil', [App\Http\Controllers\ProfileController::class, 'update'])->name('perfil.update');
+
     // Configuración
     Route::prefix('configuracion')->group(function () {
         Route::resource('usuarios', App\Http\Controllers\Config\UsersController::class)->names('usuarios');

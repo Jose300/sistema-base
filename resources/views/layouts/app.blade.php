@@ -63,6 +63,14 @@
                                 <span class="nav-link-title">Inicio</span>
                             </a>
                         </li>
+                        <li class="nav-item {{ request()->is('perfil*') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('perfil.index') }}">
+                                <span class="nav-link-icon">
+                                    <i class="ti ti-user"></i>
+                                </span>
+                                <span class="nav-link-title">Mi Perfil</span>
+                            </a>
+                        </li>
                         @canany(['ver-usuarios', 'ver-roles', 'ver-permisos', 'gestionar-configuracion'])
                         <li class="nav-item dropdown {{ request()->is('configuracion*') ? 'active' : '' }}">
                             <a class="nav-link dropdown-toggle" href="#navbar-config" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="false">
@@ -169,6 +177,11 @@
                                         ROLE: {{ auth()->user()->getRoleNames()->first() ?? 'ADMINISTRADOR' }}
                                     </div>
                                 </div>
+                                <div class="dropdown-divider"></div>
+                                <a href="{{ route('perfil.index') }}" class="dropdown-item py-2">
+                                    <i class="ti ti-user text-primary me-2 fs-2"></i>
+                                    <span class="fs-3">Mi Perfil</span>
+                                </a>
                                 <div class="dropdown-divider"></div>
                                 <form action="{{ route('logout') }}" method="post" id="logout-form">
                                     @csrf
