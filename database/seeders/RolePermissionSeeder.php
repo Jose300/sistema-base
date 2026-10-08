@@ -51,6 +51,6 @@ class RolePermissionSeeder extends Seeder
         $admin->syncRoles([$developRole]);
 
         // Remove the old test user if it exists
-        User::where('email', 'admin@bodega.com')->delete();
+        User::where('email', 'admin@sistema.com')->delete();
     }
 }

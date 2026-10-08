@@ -9,5 +9,5 @@
             <path d="M9 21v-4a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v4" />
         </svg>
     </div>
-    <span class="h1 mb-0 fw-bold">Bodega<span class="text-primary">App</span></span>
+    <span class="h1 mb-0 fw-bold">Sistema<span class="text-primary">Base</span></span>
 </div>
