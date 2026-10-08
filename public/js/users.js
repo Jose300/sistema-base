@@ -204,7 +204,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const updateModalFlag = () => {
             const opt = userCountrySelect.options[userCountrySelect.selectedIndex];
             const iso = opt ? opt.getAttribute('data-iso') : 've';
-            userModalFlagIcon.className = 'flag flag-country-' + (iso || 've');
+            userModalFlagIcon.className = 'flag flag-xs flag-country-' + (iso || 've');
         };
         userCountrySelect.addEventListener('change', updateModalFlag);
         document.getElementById('modal-user')?.addEventListener('shown.bs.modal', updateModalFlag);

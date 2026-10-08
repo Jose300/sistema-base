@@ -138,11 +138,11 @@
                             <label class="form-label required">Correo Electrónico</label>
                             <input type="email" name="email" class="form-control" placeholder="correo@ejemplo.com">
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-5">
                             <label class="form-label">Cód. País</label>
                             <div class="input-group">
                                 <span class="input-group-text bg-white px-2">
-                                    <span class="flag flag-country-ve" id="user-modal-flag-icon"></span>
+                                    <span class="flag flag-xs flag-country-ve" id="user-modal-flag-icon" style="width: 1.25rem; height: 0.9rem;"></span>
                                 </span>
                                 <select name="country_code" id="user-country-code" class="form-select">
                                     @foreach(\App\Helpers\PhoneHelper::getCountryCodes() as $code => $country)
@@ -162,7 +162,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <label class="form-label">Teléfono</label>
                             <input type="text" name="phone" class="form-control" placeholder="1234567">
                         </div>

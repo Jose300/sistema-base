@@ -131,7 +131,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-md-3">
+                                <div class="col-md-5">
                                     <label class="form-label">Cód. País</label>
                                     <div class="input-group">
                                         @php
@@ -139,7 +139,7 @@
                                             $selectedIso = \App\Helpers\PhoneHelper::getCountryCodes()[$selectedCode]['iso'] ?? 've';
                                         @endphp
                                         <span class="input-group-text bg-white px-2">
-                                            <span class="flag flag-country-{{ $selectedIso }}" id="profile-flag-icon"></span>
+                                            <span class="flag flag-xs flag-country-{{ $selectedIso }}" id="profile-flag-icon" style="width: 1.25rem; height: 0.9rem;"></span>
                                         </span>
                                         <select name="country_code" id="profile-country-code" class="form-select @error('country_code') is-invalid @enderror">
                                             @foreach(\App\Helpers\PhoneHelper::getCountryCodes() as $code => $country)
@@ -175,7 +175,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <label class="form-label">Número Telefónico</label>
                                     <div class="input-icon">
                                         <span class="input-icon-addon">
@@ -261,7 +261,7 @@
                 const iso = selectedOpt ? selectedOpt.getAttribute('data-iso') : 've';
                 const flagIcon = document.getElementById('profile-flag-icon');
                 if (flagIcon) {
-                    flagIcon.className = 'flag flag-country-' + (iso || 've');
+                    flagIcon.className = 'flag flag-xs flag-country-' + (iso || 've');
                 }
             };
 
