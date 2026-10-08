@@ -20,6 +20,22 @@
         body {
             font-feature-settings: "cv03", "cv04", "cv11";
         }
+        /* Estilo para opción activa en el menú lateral */
+        .navbar-vertical .navbar-nav .nav-item.active > .nav-link,
+        .navbar-vertical .navbar-nav .nav-link.active,
+        .navbar-vertical .dropdown-menu .dropdown-item.active {
+            background-color: #e0f2fe !important;
+            color: #0284c7 !important;
+            font-weight: 600;
+            border-radius: 6px;
+            margin-left: 0.5rem;
+            margin-right: 0.5rem;
+        }
+        .navbar-vertical .navbar-nav .nav-item.active > .nav-link .nav-link-icon,
+        .navbar-vertical .navbar-nav .nav-link.active .nav-link-icon,
+        .navbar-vertical .dropdown-menu .dropdown-item.active .nav-link-icon {
+            color: #0284c7 !important;
+        }
     </style>
     @stack('css')
 </head>
