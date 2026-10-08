@@ -133,12 +133,13 @@
 
                                 <div class="col-md-3">
                                     <label class="form-label">Cód. País</label>
-                                    <div class="input-icon">
-                                        <span class="input-icon-addon">
-                                            <i class="ti ti-world"></i>
-                                        </span>
-                                        <input type="text" name="country_code" class="form-control @error('country_code') is-invalid @enderror" value="{{ old('country_code', $user->country_code ?? '+58') }}" placeholder="+58">
-                                    </div>
+                                    <select name="country_code" id="profile-country-code" class="form-select @error('country_code') is-invalid @enderror">
+                                        @foreach(\App\Helpers\PhoneHelper::getCountryCodes() as $code => $country)
+                                            <option value="{{ $code }}" {{ old('country_code', $user->country_code ?? '+58') == $code ? 'selected' : '' }}>
+                                                {{ $country['flag'] }} {{ $code }} ({{ $country['name'] }})
+                                            </option>
+                                        @endforeach
+                                    </select>
                                     @error('country_code')
                                         <div class="invalid-feedback d-block">{{ $message }}</div>
                                     @enderror
@@ -146,12 +147,20 @@
 
                                 <div class="col-md-3">
                                     <label class="form-label">Cód. Área</label>
-                                    <div class="input-icon">
-                                        <span class="input-icon-addon">
-                                            <i class="ti ti-building"></i>
-                                        </span>
-                                        <input type="text" name="area_code" class="form-control @error('area_code') is-invalid @enderror" value="{{ old('area_code', $user->area_code) }}" placeholder="0414">
-                                    </div>
+                                    <select name="area_code" id="profile-area-code" class="form-select @error('area_code') is-invalid @enderror">
+                                        <option value="">-- Seleccionar --</option>
+                                        @php
+                                            $currentCountry = old('country_code', $user->country_code ?? '+58');
+                                            $areaCodes = \App\Helpers\PhoneHelper::getAreaCodes()[$currentCountry] ?? [];
+                                            $currentArea = old('area_code', $user->area_code);
+                                        @endphp
+                                        @foreach($areaCodes as $val => $label)
+                                            <option value="{{ $val }}" {{ $currentArea == $val ? 'selected' : '' }}>{{ $label }}</option>
+                                        @endforeach
+                                        @if($currentArea && !array_key_exists($currentArea, $areaCodes))
+                                            <option value="{{ $currentArea }}" selected>{{ $currentArea }}</option>
+                                        @endif
+                                    </select>
                                     @error('area_code')
                                         <div class="invalid-feedback d-block">{{ $message }}</div>
                                     @enderror
@@ -229,3 +238,31 @@
     </div>
 </div>
 @endsection
+
+@push('js')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const phoneAreaDictionary = @json(\App\Helpers\PhoneHelper::getAreaCodes());
+        const countrySelect = document.getElementById('profile-country-code');
+        const areaSelect = document.getElementById('profile-area-code');
+
+        if (countrySelect && areaSelect) {
+            countrySelect.addEventListener('change', function() {
+                const country = this.value;
+                const areas = phoneAreaDictionary[country] || {};
+                const currentVal = areaSelect.value;
+                
+                areaSelect.innerHTML = '<option value="">-- Seleccionar --</option>';
+                
+                for (const [val, label] of Object.entries(areas)) {
+                    const opt = document.createElement('option');
+                    opt.value = val;
+                    opt.textContent = label;
+                    if (val === currentVal) opt.selected = true;
+                    areaSelect.appendChild(opt);
+                }
+            });
+        }
+    });
+</script>
+@endpush

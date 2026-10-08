@@ -140,11 +140,22 @@
                         </div>
                         <div class="col-md-3">
                             <label class="form-label">Cód. País</label>
-                            <input type="text" name="country_code" class="form-control" placeholder="+58" value="+58">
+                            <select name="country_code" id="user-country-code" class="form-select">
+                                @foreach(\App\Helpers\PhoneHelper::getCountryCodes() as $code => $country)
+                                    <option value="{{ $code }}" {{ $code == '+58' ? 'selected' : '' }}>
+                                        {{ $country['flag'] }} {{ $code }} ({{ $country['name'] }})
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="col-md-3">
                             <label class="form-label">Cód. Área</label>
-                            <input type="text" name="area_code" class="form-control" placeholder="0414">
+                            <select name="area_code" id="user-area-code" class="form-select">
+                                <option value="">-- Seleccionar --</option>
+                                @foreach(\App\Helpers\PhoneHelper::getAreaCodes()['+58'] as $val => $label)
+                                    <option value="{{ $val }}">{{ $label }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Teléfono</label>
