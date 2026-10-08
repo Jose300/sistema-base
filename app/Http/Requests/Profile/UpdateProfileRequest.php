@@ -25,6 +25,9 @@ class UpdateProfileRequest extends FormRequest
                 'max:255',
                 Rule::unique('users')->ignore($userId),
             ],
+            'country_code' => 'nullable|string|max:10',
+            'area_code' => 'nullable|string|max:10',
+            'phone' => 'nullable|string|max:20',
             'current_password' => 'nullable|required_with:password|current_password',
             'password' => 'nullable|string|min:8|confirmed',
         ];

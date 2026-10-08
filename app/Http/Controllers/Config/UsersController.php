@@ -23,6 +23,9 @@ class UsersController extends Controller
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'country_code' => $request->country_code,
+            'area_code' => $request->area_code,
+            'phone' => $request->phone,
             'password' => bcrypt($request->password),
             'status' => $request->status,
         ]);
@@ -52,6 +55,9 @@ class UsersController extends Controller
         $usuario->update([
             'name' => $request->name,
             'email' => $request->email,
+            'country_code' => $request->country_code,
+            'area_code' => $request->area_code,
+            'phone' => $request->phone,
             'status' => $request->status,
         ]);
 

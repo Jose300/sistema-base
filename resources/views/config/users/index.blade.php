@@ -47,6 +47,7 @@
                             <th class="w-1 border-bottom-0">ID</th>
                             <th class="border-bottom-0">NOMBRE</th>
                             <th class="border-bottom-0">EMAIL</th>
+                            <th class="border-bottom-0">TELÉFONO</th>
                             <th class="border-bottom-0">ROL</th>
                             <th class="border-bottom-0">ESTADO</th>
                             <th class="border-bottom-0">FECHA DE CREACIÓN</th>
@@ -66,6 +67,7 @@
                                 </div>
                             </td>
                             <td>{{ $user->email }}</td>
+                            <td><span class="text-secondary">{{ $user->full_phone }}</span></td>
                             <td>
                                 @foreach($user->roles as $role)
                                     <span class="badge bg-blue-lt">{{ $role->name }}</span>
@@ -135,6 +137,18 @@
                         <div class="col-md-6">
                             <label class="form-label required">Correo Electrónico</label>
                             <input type="email" name="email" class="form-control" placeholder="correo@ejemplo.com">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">Cód. País</label>
+                            <input type="text" name="country_code" class="form-control" placeholder="+58" value="+58">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">Cód. Área</label>
+                            <input type="text" name="area_code" class="form-control" placeholder="0414">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Teléfono</label>
+                            <input type="text" name="phone" class="form-control" placeholder="1234567">
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Contraseña</label>

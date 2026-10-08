@@ -71,6 +71,10 @@
 
                         <div class="text-start small text-secondary">
                             <div class="d-flex align-items-center mb-2">
+                                <i class="ti ti-phone me-2 fs-2 text-muted"></i>
+                                <span>Teléfono: <strong>{{ $user->full_phone }}</strong></span>
+                            </div>
+                            <div class="d-flex align-items-center mb-2">
                                 <i class="ti ti-calendar me-2 fs-2 text-muted"></i>
                                 <span>Miembro desde: <strong>{{ $user->created_at ? $user->created_at->format('d/m/Y') : 'N/A' }}</strong></span>
                             </div>
@@ -123,6 +127,45 @@
                                         <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email', $user->email) }}" required>
                                     </div>
                                     @error('email')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label class="form-label">Cód. País</label>
+                                    <div class="input-icon">
+                                        <span class="input-icon-addon">
+                                            <i class="ti ti-world"></i>
+                                        </span>
+                                        <input type="text" name="country_code" class="form-control @error('country_code') is-invalid @enderror" value="{{ old('country_code', $user->country_code ?? '+58') }}" placeholder="+58">
+                                    </div>
+                                    @error('country_code')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label class="form-label">Cód. Área</label>
+                                    <div class="input-icon">
+                                        <span class="input-icon-addon">
+                                            <i class="ti ti-building"></i>
+                                        </span>
+                                        <input type="text" name="area_code" class="form-control @error('area_code') is-invalid @enderror" value="{{ old('area_code', $user->area_code) }}" placeholder="0414">
+                                    </div>
+                                    @error('area_code')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label">Número Telefónico</label>
+                                    <div class="input-icon">
+                                        <span class="input-icon-addon">
+                                            <i class="ti ti-phone"></i>
+                                        </span>
+                                        <input type="text" name="phone" class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone', $user->phone) }}" placeholder="1234567">
+                                    </div>
+                                    @error('phone')
                                         <div class="invalid-feedback d-block">{{ $message }}</div>
                                     @enderror
                                 </div>

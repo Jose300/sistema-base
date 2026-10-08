@@ -64,6 +64,9 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 userForm.name.value = data.usuario.name;
                 userForm.email.value = data.usuario.email;
+                if (userForm.country_code) userForm.country_code.value = data.usuario.country_code || '+58';
+                if (userForm.area_code) userForm.area_code.value = data.usuario.area_code || '';
+                if (userForm.phone) userForm.phone.value = data.usuario.phone || '';
                 userForm.role.value = data.role;
                 userForm.status.value = data.usuario.status;
                 userForm.password.value = '';

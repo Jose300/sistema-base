@@ -20,6 +20,9 @@ class ProfileController extends Controller
 
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->country_code = $request->country_code;
+        $user->area_code = $request->area_code;
+        $user->phone = $request->phone;
 
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
