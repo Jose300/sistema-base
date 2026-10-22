@@ -59,29 +59,76 @@
                             </td>
                             <td class="text-center">{{ $role->created_at->format('d/m/Y') }}</td>
                             <td class="text-center">
-                                <div class="btn-group" role="group">
-                                    <button class="btn btn-icon btn-primary me-2 btn-edit-role" 
-                                            data-url="{{ route('roles.edit', $role->id) }}"
-                                            data-update-url="{{ route('roles.update', $role->id) }}">
-                                        <i class="ti ti-edit fs-2"></i>
-                                    </button>
-                                    <button class="btn btn-icon btn-danger btn-delete" 
-                                            data-bs-toggle="modal" 
-                                            data-bs-target="#modal-delete"
-                                            data-name="{{ $role->name }}"
-                                            data-url="{{ route('roles.destroy', $role->id) }}">
-                                        <i class="ti ti-trash fs-2"></i>
-                                    </button>
-                                </div>
+                                @if(strtolower($role->name) === 'develop')
+                                    <span class="badge bg-warning-lt text-warning fw-bold px-2 py-1" title="Rol del sistema protegido">
+                                        <i class="ti ti-lock me-1"></i> SISTEMA 🔒
+                                    </span>
+                                @else
+                                    <div class="btn-group" role="group">
+                                        <button class="btn btn-icon btn-primary me-2 btn-edit-role" 
+                                                data-url="{{ route('roles.edit', $role->id) }}"
+                                                data-update-url="{{ route('roles.update', $role->id) }}">
+                                            <i class="ti ti-edit fs-2"></i>
+                                        </button>
+                                        <button class="btn btn-icon btn-danger btn-delete" 
+                                                data-bs-toggle="modal" 
+                                                data-bs-target="#modal-delete"
+                                                data-name="{{ $role->name }}"
+                                                data-url="{{ route('roles.destroy', $role->id) }}">
+                                            <i class="ti ti-trash fs-2"></i>
+                                        </button>
+                                    </div>
+                                @endif
                             </td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
-            <div class="card-footer d-flex align-items-center">
-                <div class="pagination m-0 ms-auto">
-                    {{ $roles->links() }}
+            <div class="card-footer d-flex align-items-center justify-content-between py-3">
+                <div class="text-secondary" style="font-size: 0.85rem;">
+                    Mostrando {{ $roles->firstItem() ?? 0 }} a {{ $roles->lastItem() ?? 0 }} de {{ $roles->total() }} registros
+                </div>
+                <div>
+                    <div class="d-inline-flex align-items-center border rounded bg-white shadow-none" style="border-color: #e5e7eb !important; padding: 2px;">
+                        @if ($roles->onFirstPage())
+                            <span class="d-inline-flex align-items-center justify-content-center text-muted" style="width: 32px; height: 32px; font-size: 0.95rem; cursor: not-allowed; opacity: 0.35; user-select: none;">
+                                &lsaquo;
+                            </span>
+                        @else
+                            <a href="{{ $roles->previousPageUrl() }}" class="d-inline-flex align-items-center justify-content-center text-secondary text-decoration-none rounded datatable-page-btn" style="width: 32px; height: 32px; font-size: 0.95rem;">
+                                &lsaquo;
+                            </a>
+                        @endif
+
+                        @if ($roles->lastPage() > 1)
+                            @foreach ($roles->getUrlRange(1, $roles->lastPage()) as $page => $url)
+                                @if ($page == $roles->currentPage())
+                                    <span class="d-inline-flex align-items-center justify-content-center bg-primary text-white fw-bold rounded" style="width: 32px; height: 32px; font-size: 0.85rem;">
+                                        {{ $page }}
+                                    </span>
+                                @else
+                                    <a href="{{ $url }}" class="d-inline-flex align-items-center justify-content-center text-secondary text-decoration-none rounded datatable-page-btn" style="width: 32px; height: 32px; font-size: 0.85rem;">
+                                        {{ $page }}
+                                    </a>
+                                @endif
+                            @endforeach
+                        @else
+                            <span class="d-inline-flex align-items-center justify-content-center bg-primary text-white fw-bold rounded" style="width: 32px; height: 32px; font-size: 0.85rem;">
+                                1
+                            </span>
+                        @endif
+
+                        @if ($roles->hasMorePages())
+                            <a href="{{ $roles->nextPageUrl() }}" class="d-inline-flex align-items-center justify-content-center text-secondary text-decoration-none rounded datatable-page-btn" style="width: 32px; height: 32px; font-size: 0.95rem;">
+                                &rsaquo;
+                            </a>
+                        @else
+                            <span class="d-inline-flex align-items-center justify-content-center text-muted" style="width: 32px; height: 32px; font-size: 0.95rem; cursor: not-allowed; opacity: 0.35; user-select: none;">
+                                &rsaquo;
+                            </span>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>
@@ -125,3 +172,15 @@
 </div>
 
 @endsection
+
+@push('css')
+<style>
+    .datatable-page-btn {
+        transition: background-color 0.15s ease, color 0.15s ease;
+    }
+    .datatable-page-btn:hover {
+        background-color: #f1f5f9;
+        color: var(--tblr-primary) !important;
+    }
+</style>
+@endpush

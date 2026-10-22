@@ -7,10 +7,12 @@
     <div class="container-xl">
         <div class="row g-2 align-items-center">
             <div class="col">
-                <h2 class="page-title">
-                    <i class="ti ti-user me-2 text-primary"></i>Mi Perfil
+                <div class="text-secondary fw-bold text-uppercase" style="font-size: 0.72rem; letter-spacing: 0.08em;">
+                    CUENTA & SEGURIDAD
+                </div>
+                <h2 class="page-title mt-1 d-flex align-items-center">
+                    <i class="ti ti-user-circle me-2 text-primary" style="font-size: 1.6rem;"></i>Mi Perfil
                 </h2>
-                <div class="text-secondary mt-1">Administra tu información personal y ajustes de seguridad</div>
             </div>
         </div>
     </div>
@@ -45,42 +47,108 @@
             </div>
         @endif
 
+        @php
+            $role = $user->getRoleNames()->first() ?? 'Develop';
+            $roleUpper = strtoupper($role);
+
+            $userPermissionsCount = $user->getAllPermissions()->count();
+            $rolesConfig = [
+                'Develop' => [
+                    'area' => 'Soporte y Desarrollo',
+                    'area_icon' => 'ti ti-code',
+                    'access' => 'Acceso Total',
+                    'access_icon' => 'ti ti-shield-check',
+                    'modules' => 'Todos los Módulos Base',
+                    'permissions' => $userPermissionsCount . ' Activos',
+                ],
+                'Admin' => [
+                    'area' => 'Administración y Gestión',
+                    'area_icon' => 'ti ti-briefcase',
+                    'access' => 'Acceso Administrativo',
+                    'access_icon' => 'ti ti-shield-check',
+                    'modules' => 'Todos los Módulos Base',
+                    'permissions' => $userPermissionsCount . ' Activos',
+                ],
+
+                'Usuario' => [
+                    'area' => 'Operativo / Estándar',
+                    'area_icon' => 'ti ti-user',
+                    'access' => 'Acceso Básico',
+                    'access_icon' => 'ti ti-shield',
+                    'modules' => 'Módulos Asignados',
+                    'permissions' => $userPermissionsCount . ' Activos',
+                ],
+            ];
+
+            $currentRoleConfig = $rolesConfig[$role] ?? $rolesConfig['Develop'];
+        @endphp
+
         <div class="row row-cards">
             <!-- Summary card -->
             <div class="col-lg-4">
-                <div class="card border-0 shadow-sm text-center p-4">
-                    <div class="card-body">
+                <div class="card border-0 shadow-sm text-center p-3 p-md-4">
+                    <div class="card-body p-0">
                         <div class="mb-3">
-                            <span class="avatar avatar-xl rounded-circle fw-bold text-primary border border-primary border-2 bg-primary-lt mx-auto" style="font-size: 1.8rem; width: 80px; height: 80px; line-height: 80px;">
-                                {{ collect(explode(' ', $user->name))->map(fn($n) => $n[0])->take(2)->join('') }}
+                            <span class="avatar avatar-xl rounded-circle fw-bold text-white bg-primary mx-auto shadow-sm" style="font-size: 1.8rem; width: 84px; height: 84px; line-height: 84px;">
+                                {{ $user->initials }}
                             </span>
                         </div>
-                        <h3 class="card-title mb-1 fs-2">{{ $user->name }}</h3>
-                        <p class="text-secondary mb-3">{{ $user->email }}</p>
+                        <h3 class="card-title mb-1 fw-bold fs-2 text-dark">{{ $user->name }}</h3>
+                        <p class="text-secondary small mb-3">{{ $user->email }}</p>
                         
-                        <div class="d-flex justify-content-center gap-2 mb-3">
-                            <span class="badge bg-blue-lt text-uppercase px-3 py-2 fw-bold">
-                                {{ $user->getRoleNames()->first() ?? 'Usuario' }}
-                            </span>
-                            <span class="badge {{ $user->status === 'Activo' ? 'bg-success-lt' : 'bg-danger-lt' }} px-3 py-2 fw-bold">
-                                {{ $user->status ?? 'Activo' }}
+                        <div class="d-flex justify-content-center mb-3">
+                            <span class="badge bg-blue-lt text-blue text-uppercase px-3 py-1 fw-bold" style="font-size: 0.8rem;">
+                                <i class="ti ti-shield me-1"></i> {{ $roleUpper }}
                             </span>
                         </div>
 
-                        <hr class="my-3">
+                        <hr class="my-3 opacity-50">
 
-                        <div class="text-start small text-secondary">
-                            <div class="d-flex align-items-center mb-2">
-                                <i class="ti ti-phone me-2 fs-2 text-muted"></i>
-                                <span>Teléfono: <strong>{{ $user->full_phone }}</strong></span>
+                        <div class="text-start">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="text-secondary small">Nombre Completo:</span>
+                                <span class="fw-bold text-dark" style="font-size: 0.875rem;">{{ $user->name }}</span>
                             </div>
-                            <div class="d-flex align-items-center mb-2">
-                                <i class="ti ti-calendar me-2 fs-2 text-muted"></i>
-                                <span>Miembro desde: <strong>{{ $user->created_at ? $user->created_at->format('d/m/Y') : 'N/A' }}</strong></span>
+
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="text-secondary small">Área / Especialidad:</span>
+                                <span class="badge bg-cyan-lt text-cyan fw-bold px-2 py-1">
+                                    <i class="{{ $currentRoleConfig['area_icon'] }} me-1"></i>{{ $currentRoleConfig['area'] }}
+                                </span>
                             </div>
-                            <div class="d-flex align-items-center">
-                                <i class="ti ti-shield-check me-2 fs-2 text-muted"></i>
-                                <span>Estado de cuenta: <strong>{{ $user->status ?? 'Activo' }}</strong></span>
+
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="text-secondary small">Nivel de Acceso:</span>
+                                <span class="badge bg-blue-lt text-blue fw-bold px-2 py-1">
+                                    <i class="{{ $currentRoleConfig['access_icon'] }} me-1"></i>{{ $currentRoleConfig['access'] }}
+                                </span>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="text-secondary small">Módulos:</span>
+                                <span class="badge bg-purple-lt text-purple fw-bold px-2 py-1">
+                                    {{ $currentRoleConfig['modules'] }}
+                                </span>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="text-secondary small">Permisos del Sistema:</span>
+                                <span class="badge bg-green-lt text-green fw-bold px-2 py-1">
+                                    {{ $currentRoleConfig['permissions'] }}
+                                </span>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-secondary small">Estado de Cuenta:</span>
+                                @if(($user->status ?? 'Activo') === 'Activo')
+                                    <span class="badge bg-green-lt text-green fw-bold px-2 py-1 d-inline-flex align-items-center">
+                                        <span class="badge-dot bg-success me-1" style="width: 6px; height: 6px; border-radius: 50%; display: inline-block;"></span> Activo
+                                    </span>
+                                @else
+                                    <span class="badge bg-danger-lt text-danger fw-bold px-2 py-1 d-inline-flex align-items-center">
+                                        <span class="badge-dot bg-danger me-1" style="width: 6px; height: 6px; border-radius: 50%; display: inline-block;"></span> Inactivo
+                                    </span>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -131,7 +199,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-md-5">
+                                <div class="col-md-4">
                                     <label class="form-label">Cód. País</label>
                                     <div class="input-group">
                                         @php
@@ -154,7 +222,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <label class="form-label">Cód. Área</label>
                                     <select name="area_code" id="profile-area-code" class="form-select @error('area_code') is-invalid @enderror">
                                         <option value="">-- Seleccionar --</option>
@@ -175,7 +243,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <label class="form-label">Número Telefónico</label>
                                     <div class="input-icon">
                                         <span class="input-icon-addon">

@@ -23,3 +23,7 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+
+git remote add origin https://github.com/Jose300/sistema-base.git
+git push -u origin main

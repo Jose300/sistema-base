@@ -138,7 +138,7 @@
                             <label class="form-label required">Correo Electrónico</label>
                             <input type="email" name="email" class="form-control" placeholder="correo@ejemplo.com">
                         </div>
-                        <div class="col-md-5">
+                        <div class="col-md-4">
                             <label class="form-label">Cód. País</label>
                             <div class="input-group">
                                 <span class="input-group-text bg-white px-2">
@@ -153,7 +153,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <label class="form-label">Cód. Área</label>
                             <select name="area_code" id="user-area-code" class="form-select">
                                 <option value="">-- Seleccionar --</option>
@@ -162,7 +162,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label class="form-label">Teléfono</label>
                             <input type="text" name="phone" class="form-control" placeholder="1234567">
                         </div>

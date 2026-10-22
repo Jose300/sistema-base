@@ -18,6 +18,47 @@ class User extends Authenticatable
     use HasFactory, Notifiable, HasRoles;
 
     /**
+     * Get the user's first name and first last name (primer nombre y primer apellido).
+     */
+    public function getShortNameAttribute(): string
+    {
+        $parts = array_values(array_filter(explode(' ', trim($this->name ?? ''))));
+        $count = count($parts);
+
+        if ($count === 0) {
+            return '';
+        }
+
+        if ($count === 1) {
+            return $parts[0];
+        }
+
+        if ($count >= 4) {
+            return "{$parts[0]} {$parts[2]}";
+        }
+
+        return "{$parts[0]} {$parts[1]}";
+    }
+
+    /**
+     * Get initials based on short name (primer nombre y primer apellido).
+     */
+    public function getInitialsAttribute(): string
+    {
+        $parts = array_values(array_filter(explode(' ', trim($this->short_name))));
+
+        if (empty($parts)) {
+            return 'U';
+        }
+
+        if (count($parts) === 1) {
+            return mb_strtoupper(mb_substr($parts[0], 0, 2));
+        }
+
+        return mb_strtoupper(mb_substr($parts[0], 0, 1) . mb_substr($parts[1], 0, 1));
+    }
+
+    /**
      * Get the formatted full phone number.
      */
     public function getFullPhoneAttribute(): string

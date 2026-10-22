@@ -37,6 +37,16 @@ class RolesController extends Controller
 
     public function update(UpdateRoleRequest $request, Role $role)
     {
+        if (strtolower($role->name) === 'develop') {
+            if ($request->ajax()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'El rol Develop es del sistema y no puede ser modificado.'
+                ], 403);
+            }
+            return redirect()->route('roles.index')->with('error', 'El rol Develop es del sistema y no puede ser modificado.');
+        }
+
         $role->update(['name' => $request->name]);
 
         if ($request->ajax()) {
@@ -51,6 +61,10 @@ class RolesController extends Controller
 
     public function destroy(Role $role)
     {
+        if (strtolower($role->name) === 'develop') {
+            return redirect()->route('roles.index')->with('error', 'El rol Develop es del sistema y no puede ser eliminado.');
+        }
+
         $role->delete();
         return redirect()->route('roles.index')->with('success', 'Rol eliminado correctamente.');
     }

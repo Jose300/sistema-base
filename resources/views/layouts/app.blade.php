@@ -72,7 +72,7 @@
                                 <span class="nav-link-title">Mi Perfil</span>
                             </a>
                         </li>
-                        @canany(['ver-usuarios', 'ver-roles', 'ver-permisos', 'gestionar-configuracion'])
+                        @canany(['ver-usuarios', 'ver-roles', 'ver-permisos'])
                         <li class="nav-item dropdown {{ request()->is('configuracion*') ? 'active' : '' }}">
                             <a class="nav-link dropdown-toggle" href="#navbar-config" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="false">
                                 <span class="nav-link-icon">
@@ -160,14 +160,14 @@
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu" aria-expanded="false">
                                 <div class="d-none d-xl-block pe-2 text-end">
-                                    <div class="fw-bold text-uppercase">{{ auth()->user()->name }}</div>
+                                    <div class="fw-bold text-uppercase">{{ auth()->user()->short_name }}</div>
                                     <div class="mt-1 small text-uppercase text-info fw-bold" style="font-size: 0.65rem;">
                                         {{ auth()->user()->getRoleNames()->first() ?? 'Usuario' }}
                                     </div>
                                 </div>
                                 <span class="avatar avatar-sm rounded-circle fw-bold text-info border border-info border-2 bg-white" 
                                       style="font-size: 0.7rem;">
-                                    {{ collect(explode(' ', auth()->user()->name))->map(fn($n) => $n[0])->take(2)->join('') }}
+                                    {{ auth()->user()->initials }}
                                 </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow shadow-sm border-0 p-3" style="min-width: 200px;">
