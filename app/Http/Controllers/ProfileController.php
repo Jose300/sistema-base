@@ -18,7 +18,9 @@ class ProfileController extends Controller
     {
         $user = auth()->user();
 
-        $user->name = $request->name;
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->name = trim("{$request->first_name} {$request->last_name}");
         $user->email = $request->email;
         $user->country_code = $request->country_code;
         $user->area_code = $request->area_code;

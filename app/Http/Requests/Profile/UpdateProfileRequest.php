@@ -17,7 +17,8 @@ class UpdateProfileRequest extends FormRequest
         $userId = auth()->id();
 
         return [
-            'name' => 'required|string|max:255',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
             'email' => [
                 'required',
                 'string',
@@ -36,7 +37,8 @@ class UpdateProfileRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'El nombre es obligatorio.',
+            'first_name.required' => 'Los nombres son obligatorios.',
+            'last_name.required' => 'Los apellidos son obligatorios.',
             'email.required' => 'El correo electrónico es obligatorio.',
             'email.unique' => 'Este correo electrónico ya está registrado por otro usuario.',
             'current_password.required_with' => 'Debe ingresar su contraseña actual para establecer una nueva.',

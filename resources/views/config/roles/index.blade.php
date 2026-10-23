@@ -164,7 +164,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger ms-auto fw-bold" data-bs-dismiss="modal">CERRAR</button>
-                    <button type="submit" class="btn btn-primary fw-bold" id="btn-save-role">GUARDAR</button>
+                    <button type="submit" class="btn btn-success fw-bold" id="btn-save-role">GUARDAR</button>
                 </div>
             </form>
         </div>

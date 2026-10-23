@@ -58,10 +58,24 @@ class PermissionsController extends Controller
             if ($role->hasPermissionTo($permission)) {
                 $role->revokePermissionTo($permission);
                 $status = 'revoked';
+                $accion = 'ELIMINAR';
             } else {
                 $role->givePermissionTo($permission);
                 $status = 'assigned';
+                $accion = 'CREAR';
             }
+
+            \App\Services\AuditService::log([
+                'modulo' => 'Permisos',
+                'tabla' => 'role_has_permissions',
+                'accion' => $accion,
+                'registro_id' => $permission->id,
+                'registro_codigo' => $permission->name,
+                'registro_nombre' => "Permiso '{$permission->name}' a Rol '{$role->name}'",
+                'data_anterior' => ['has_permission' => $status === 'revoked'],
+                'data_nueva' => ['has_permission' => $status === 'assigned'],
+                'campos_modificados' => ['permission', 'role'],
+            ]);
 
             return response()->json([
                 'success' => true,

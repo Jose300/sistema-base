@@ -63,7 +63,9 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(response => response.json())
             .then(data => {
-                userForm.name.value = data.usuario.name;
+                if (userForm.first_name) userForm.first_name.value = data.usuario.first_name || '';
+                if (userForm.last_name) userForm.last_name.value = data.usuario.last_name || '';
+                if (userForm.name) userForm.name.value = data.usuario.name || '';
                 userForm.email.value = data.usuario.email;
                 const country = data.usuario.country_code || '+58';
                 const area = data.usuario.area_code || '';
@@ -141,8 +143,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 text: `Desea eliminar al usuario "${name}". Esta acción no se puede deshacer.`,
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#d63939',
-                cancelButtonColor: '#6c757d',
+                confirmButtonColor: '#2fb344',
+                cancelButtonColor: '#d63939',
                 confirmButtonText: 'Sí, eliminar',
                 cancelButtonText: 'Cancelar',
                 reverseButtons: true

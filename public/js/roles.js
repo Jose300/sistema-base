@@ -110,8 +110,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 text: `Desea eliminar el rol "${name}". Esta acción no se puede deshacer.`,
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#d63939',
-                cancelButtonColor: '#6c757d',
+                confirmButtonColor: '#2fb344',
+                cancelButtonColor: '#d63939',
                 confirmButtonText: 'Sí, eliminar',
                 cancelButtonText: 'Cancelar',
                 reverseButtons: true

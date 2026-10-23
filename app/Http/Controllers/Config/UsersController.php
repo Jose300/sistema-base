@@ -21,7 +21,9 @@ class UsersController extends Controller
     public function store(StoreUserRequest $request)
     {
         $user = User::create([
-            'name' => $request->name,
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'name' => trim("{$request->first_name} {$request->last_name}"),
             'email' => $request->email,
             'country_code' => $request->country_code,
             'area_code' => $request->area_code,
@@ -53,7 +55,9 @@ class UsersController extends Controller
     public function update(UpdateUserRequest $request, User $usuario)
     {
         $usuario->update([
-            'name' => $request->name,
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'name' => trim("{$request->first_name} {$request->last_name}"),
             'email' => $request->email,
             'country_code' => $request->country_code,
             'area_code' => $request->area_code,

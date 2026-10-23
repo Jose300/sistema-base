@@ -32,10 +32,73 @@
             margin-left: 0.5rem;
             margin-right: 0.5rem;
         }
-        .navbar-vertical .navbar-nav .nav-item.active > .nav-link .nav-link-icon,
-        .navbar-vertical .navbar-nav .nav-link.active .nav-link-icon,
-        .navbar-vertical .dropdown-menu .dropdown-item.active .nav-link-icon {
-            color: #0284c7 !important;
+
+        /* Iconos del menú lateral: estáticos y sin desplazamientos al hacer hover */
+        .navbar-vertical .nav-link .nav-link-icon i,
+        .navbar-vertical .dropdown-item .nav-link-icon i {
+            font-size: 1.15rem;
+            vertical-align: middle;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .navbar-vertical .nav-link,
+        .navbar-vertical .dropdown-item,
+        .navbar-vertical .nav-link:hover,
+        .navbar-vertical .dropdown-item:hover,
+        .navbar-vertical .nav-link-icon,
+        .navbar-vertical .nav-link-icon i {
+            transform: none !important;
+            transition: none !important;
+        }
+
+        /* Estándar del sistema para SweetAlert2: Botones de acción en verde (#2fb344) y cancelar en rojo (#d63939) */
+        .swal2-actions {
+            gap: 0.5rem;
+        }
+        .swal2-confirm {
+            background-color: #2fb344 !important;
+            border-color: #2fb344 !important;
+            color: #ffffff !important;
+            box-shadow: 0 1px 3px rgba(47, 179, 68, 0.35) !important;
+            font-weight: 600 !important;
+            border-radius: 6px !important;
+            padding: 0.55rem 1.25rem !important;
+        }
+        .swal2-confirm:hover,
+        .swal2-confirm:focus {
+            background-color: #28a03c !important;
+            border-color: #28a03c !important;
+            box-shadow: 0 2px 6px rgba(47, 179, 68, 0.5) !important;
+        }
+        .swal2-cancel {
+            background-color: #d63939 !important;
+            border-color: #d63939 !important;
+            color: #ffffff !important;
+            box-shadow: 0 1px 3px rgba(214, 57, 57, 0.35) !important;
+            font-weight: 600 !important;
+            border-radius: 6px !important;
+            padding: 0.55rem 1.25rem !important;
+        }
+        .swal2-cancel:hover,
+        .swal2-cancel:focus {
+            background-color: #bd2d2d !important;
+            border-color: #bd2d2d !important;
+            box-shadow: 0 2px 6px rgba(214, 57, 57, 0.5) !important;
+        }
+
+        /* Estándar del sistema: Botones de cerrar / cancelar en modales siempre en rojo (#d63939) */
+        .modal-footer [data-bs-dismiss="modal"]:not(.btn-success) {
+            background-color: #d63939 !important;
+            border-color: #d63939 !important;
+            color: #ffffff !important;
+            font-weight: 600 !important;
+        }
+        .modal-footer [data-bs-dismiss="modal"]:not(.btn-success):hover,
+        .modal-footer [data-bs-dismiss="modal"]:not(.btn-success):focus {
+            background-color: #bd2d2d !important;
+            border-color: #bd2d2d !important;
+            color: #ffffff !important;
         }
     </style>
     @stack('css')
@@ -59,7 +122,7 @@
                         <li class="nav-item {{ request()->is('dashboard') ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('dashboard') }}">
                                 <span class="nav-link-icon">
-                                    <i class="ti ti-home"></i>
+                                    <i class="ti ti-home" style="color: #206bc4 !important;"></i>
                                 </span>
                                 <span class="nav-link-title">Inicio</span>
                             </a>
@@ -67,16 +130,16 @@
                         <li class="nav-item {{ request()->is('perfil*') ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('perfil.index') }}">
                                 <span class="nav-link-icon">
-                                    <i class="ti ti-user"></i>
+                                    <i class="ti ti-user" style="color: #6366f1 !important;"></i>
                                 </span>
                                 <span class="nav-link-title">Mi Perfil</span>
                             </a>
                         </li>
-                        @canany(['ver-usuarios', 'ver-roles', 'ver-permisos'])
+                        @canany(['ver-usuarios', 'ver-roles', 'ver-permisos', 'ver-auditoria', 'ver-logs', 'ver-sistema'])
                         <li class="nav-item dropdown {{ request()->is('configuracion*') ? 'active' : '' }}">
                             <a class="nav-link dropdown-toggle" href="#navbar-config" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="false">
                                 <span class="nav-link-icon">
-                                    <i class="ti ti-settings"></i>
+                                    <i class="ti ti-settings" style="color: #0ea5e9 !important;"></i>
                                 </span>
                                 <span class="nav-link-title">Configuración</span>
                             </a>
@@ -86,7 +149,7 @@
                                         @can('ver-usuarios')
                                         <a class="dropdown-item {{ request()->is('configuracion/usuarios*') ? 'active' : '' }}" href="{{ route('usuarios.index') }}">
                                             <span class="nav-link-icon d-md-none d-lg-inline-block me-2">
-                                                <i class="ti ti-users"></i>
+                                                <i class="ti ti-users" style="color: #206bc4 !important;"></i>
                                             </span>
                                             Usuarios
                                         </a>
@@ -95,7 +158,7 @@
                                         @can('ver-roles')
                                         <a class="dropdown-item {{ request()->is('configuracion/roles*') ? 'active' : '' }}" href="{{ route('roles.index') }}">
                                             <span class="nav-link-icon d-md-none d-lg-inline-block me-2">
-                                                <i class="ti ti-shield-lock"></i>
+                                                <i class="ti ti-shield-lock" style="color: #8b5cf6 !important;"></i>
                                             </span>
                                             Roles
                                         </a>
@@ -104,9 +167,36 @@
                                         @can('ver-permisos')
                                         <a class="dropdown-item {{ request()->is('configuracion/permisos*') ? 'active' : '' }}" href="{{ route('permisos.index') }}">
                                             <span class="nav-link-icon d-md-none d-lg-inline-block me-2">
-                                                <i class="ti ti-key"></i>
+                                                <i class="ti ti-key" style="color: #f59f00 !important;"></i>
                                             </span>
                                             Permisos
+                                        </a>
+                                        @endcan
+
+                                        @can('ver-auditoria')
+                                        <a class="dropdown-item {{ request()->is('configuracion/auditoria*') ? 'active' : '' }}" href="{{ route('auditorias.index') }}">
+                                            <span class="nav-link-icon d-md-none d-lg-inline-block me-2">
+                                                <i class="ti ti-history" style="color: #0ca678 !important;"></i>
+                                            </span>
+                                            Auditoría
+                                        </a>
+                                        @endcan
+
+                                        @can('ver-logs')
+                                        <a class="dropdown-item {{ request()->is('configuracion/log-errores*') ? 'active' : '' }}" href="{{ route('log-errores.index') }}">
+                                            <span class="nav-link-icon d-md-none d-lg-inline-block me-2">
+                                                <i class="ti ti-bug" style="color: #d63939 !important;"></i>
+                                            </span>
+                                            Log de Errores
+                                        </a>
+                                        @endcan
+
+                                        @can('ver-sistema')
+                                        <a class="dropdown-item {{ request()->is('configuracion/sistema*') ? 'active' : '' }}" href="{{ route('sistema.index') }}">
+                                            <span class="nav-link-icon d-md-none d-lg-inline-block me-2">
+                                                <i class="ti ti-info-circle" style="color: #0284c7 !important;"></i>
+                                            </span>
+                                            Info. Sistema
                                         </a>
                                         @endcan
                                     </div>
@@ -237,7 +327,7 @@
         @if(session('success'))
             Swal.fire({
                 icon: 'success',
-                title: '¡Hecho!',
+                title: '¡Operación Exitosa!',
                 text: "{{ session('success') }}",
                 timer: 3000,
                 showConfirmButton: false,
@@ -251,6 +341,24 @@
                 title: '¡Error!',
                 text: "{{ session('error') }}",
                 confirmButtonColor: '#d63939'
+            });
+        @endif
+
+        @if(session('warning'))
+            Swal.fire({
+                icon: 'warning',
+                title: '¡Atención!',
+                text: "{{ session('warning') }}",
+                confirmButtonColor: '#f59f00'
+            });
+        @endif
+
+        @if(session('info') || session('status'))
+            Swal.fire({
+                icon: 'info',
+                title: 'Información',
+                text: "{{ session('info') ?? session('status') }}",
+                confirmButtonColor: '#206bc4'
             });
         @endif
     </script>

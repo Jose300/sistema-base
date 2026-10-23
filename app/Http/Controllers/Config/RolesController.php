@@ -18,7 +18,18 @@ class RolesController extends Controller
 
     public function store(StoreRoleRequest $request)
     {
-        Role::create(['name' => $request->name]);
+        $role = Role::create(['name' => $request->name]);
+
+        \App\Services\AuditService::log([
+            'modulo' => 'Roles',
+            'tabla' => 'roles',
+            'accion' => 'CREAR',
+            'registro_id' => $role->id,
+            'registro_codigo' => (string) $role->id,
+            'registro_nombre' => $role->name,
+            'data_nueva' => ['name' => $role->name],
+            'campos_modificados' => ['name'],
+        ]);
 
         if ($request->ajax()) {
             return response()->json([
@@ -47,7 +58,20 @@ class RolesController extends Controller
             return redirect()->route('roles.index')->with('error', 'El rol Develop es del sistema y no puede ser modificado.');
         }
 
+        $oldName = $role->name;
         $role->update(['name' => $request->name]);
+
+        \App\Services\AuditService::log([
+            'modulo' => 'Roles',
+            'tabla' => 'roles',
+            'accion' => 'ACTUALIZAR',
+            'registro_id' => $role->id,
+            'registro_codigo' => (string) $role->id,
+            'registro_nombre' => $role->name,
+            'data_anterior' => ['name' => $oldName],
+            'data_nueva' => ['name' => $role->name],
+            'campos_modificados' => ['name'],
+        ]);
 
         if ($request->ajax()) {
             return response()->json([
@@ -65,7 +89,21 @@ class RolesController extends Controller
             return redirect()->route('roles.index')->with('error', 'El rol Develop es del sistema y no puede ser eliminado.');
         }
 
+        $deletedName = $role->name;
+        $deletedId = $role->id;
         $role->delete();
+
+        \App\Services\AuditService::log([
+            'modulo' => 'Roles',
+            'tabla' => 'roles',
+            'accion' => 'ELIMINAR',
+            'registro_id' => $deletedId,
+            'registro_codigo' => (string) $deletedId,
+            'registro_nombre' => $deletedName,
+            'data_anterior' => ['name' => $deletedName],
+            'campos_modificados' => ['name'],
+        ]);
+
         return redirect()->route('roles.index')->with('success', 'Rol eliminado correctamente.');
     }
 }

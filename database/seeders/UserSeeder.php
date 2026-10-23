@@ -13,7 +13,9 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         \App\Models\User::create([
-            'name' => 'Administrador',
+            'first_name' => 'Administrador',
+            'last_name' => 'Sistema',
+            'name' => 'Administrador Sistema',
             'email' => 'admin@sistema.com',
             'password' => \Illuminate\Support\Facades\Hash::make('password'),
         ]);

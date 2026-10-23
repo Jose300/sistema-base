@@ -106,8 +106,13 @@
 
                         <div class="text-start">
                             <div class="d-flex justify-content-between align-items-center mb-3">
-                                <span class="text-secondary small">Nombre Completo:</span>
-                                <span class="fw-bold text-dark" style="font-size: 0.875rem;">{{ $user->name }}</span>
+                                <span class="text-secondary small">Nombres:</span>
+                                <span class="fw-bold text-dark" style="font-size: 0.875rem;">{{ $user->first_name ?? $user->name }}</span>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="text-secondary small">Apellidos:</span>
+                                <span class="fw-bold text-dark" style="font-size: 0.875rem;">{{ $user->last_name ?? '-' }}</span>
                             </div>
 
                             <div class="d-flex justify-content-between align-items-center mb-3">
@@ -174,25 +179,38 @@
 
                             <div class="row g-3 mb-4">
                                 <div class="col-md-6">
-                                    <label class="form-label required">Nombre Completo</label>
+                                    <label class="form-label required">Nombres</label>
                                     <div class="input-icon">
                                         <span class="input-icon-addon">
                                             <i class="ti ti-user"></i>
                                         </span>
-                                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name', $user->name) }}" required>
+                                        <input type="text" name="first_name" class="form-control @error('first_name') is-invalid @enderror" value="{{ old('first_name', $user->first_name) }}" placeholder="Ej: Jose Alexander" required>
                                     </div>
-                                    @error('name')
+                                    @error('first_name')
                                         <div class="invalid-feedback d-block">{{ $message }}</div>
                                     @enderror
                                 </div>
 
                                 <div class="col-md-6">
+                                    <label class="form-label required">Apellidos</label>
+                                    <div class="input-icon">
+                                        <span class="input-icon-addon">
+                                            <i class="ti ti-user"></i>
+                                        </span>
+                                        <input type="text" name="last_name" class="form-control @error('last_name') is-invalid @enderror" value="{{ old('last_name', $user->last_name) }}" placeholder="Ej: Perera Guevara" required>
+                                    </div>
+                                    @error('last_name')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="col-md-12">
                                     <label class="form-label required">Correo Electrónico</label>
                                     <div class="input-icon">
                                         <span class="input-icon-addon">
                                             <i class="ti ti-mail"></i>
                                         </span>
-                                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email', $user->email) }}" required>
+                                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email', $user->email) }}" placeholder="correo@ejemplo.com" required>
                                     </div>
                                     @error('email')
                                         <div class="invalid-feedback d-block">{{ $message }}</div>
@@ -243,7 +261,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-md-3">
+                                <div class="col-md-6">
                                     <label class="form-label">Número Telefónico</label>
                                     <div class="input-icon">
                                         <span class="input-icon-addon">

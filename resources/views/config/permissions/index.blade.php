@@ -97,6 +97,10 @@
                                 'Usuarios' => 'blue',
                                 'Roles' => 'indigo',
                                 'Permisos' => 'purple',
+                                'Auditoría' => 'azure',
+                                'Log de Errores' => 'danger',
+                                'Sistema' => 'teal',
+                                'Info. Sistema' => 'teal',
                             ];
                         @endphp
 

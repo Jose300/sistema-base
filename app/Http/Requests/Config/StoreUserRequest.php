@@ -14,7 +14,8 @@ class StoreUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'country_code' => 'nullable|string|max:10',
             'area_code' => 'nullable|string|max:10',
@@ -28,7 +29,8 @@ class StoreUserRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'El nombre completo es obligatorio.',
+            'first_name.required' => 'Los nombres son obligatorios.',
+            'last_name.required' => 'Los apellidos son obligatorios.',
             'email.required' => 'El correo electrónico es obligatorio.',
             'email.unique' => 'Este correo electrónico ya está registrado.',
             'password.required' => 'La contraseña es obligatoria.',

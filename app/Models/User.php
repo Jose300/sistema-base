@@ -8,20 +8,47 @@ use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Traits\Auditable;
 use Spatie\Permission\Traits\HasRoles;
 
-#[Fillable(['name', 'email', 'password', 'status', 'country_code', 'area_code', 'phone'])]
+#[Fillable(['first_name', 'last_name', 'name', 'email', 'password', 'status', 'country_code', 'area_code', 'phone'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, Notifiable, HasRoles, Auditable;
+
+    /**
+     * The "booted" method of the model.
+     */
+    protected static function booted(): void
+    {
+        static::saving(function (User $user) {
+            if (!empty($user->first_name) || !empty($user->last_name)) {
+                $user->name = trim("{$user->first_name} {$user->last_name}");
+            }
+        });
+    }
 
     /**
      * Get the user's first name and first last name (primer nombre y primer apellido).
      */
     public function getShortNameAttribute(): string
     {
+        $firstNameParts = array_values(array_filter(explode(' ', trim($this->first_name ?? ''))));
+        $lastNameParts = array_values(array_filter(explode(' ', trim($this->last_name ?? ''))));
+
+        $first = $firstNameParts[0] ?? '';
+        $last = $lastNameParts[0] ?? '';
+
+        if ($first && $last) {
+            return "{$first} {$last}";
+        }
+
+        if ($first) {
+            return $first;
+        }
+
         $parts = array_values(array_filter(explode(' ', trim($this->name ?? ''))));
         $count = count($parts);
 

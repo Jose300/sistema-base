@@ -131,10 +131,14 @@
 
                     <div class="row g-3">
                         <div class="col-md-6">
-                            <label class="form-label required">Nombre Completo</label>
-                            <input type="text" name="name" class="form-control" placeholder="Ej: Juan Pérez">
+                            <label class="form-label required">Nombres</label>
+                            <input type="text" name="first_name" class="form-control" placeholder="Ej: Juan Antonio">
                         </div>
                         <div class="col-md-6">
+                            <label class="form-label required">Apellidos</label>
+                            <input type="text" name="last_name" class="form-control" placeholder="Ej: Pérez Rodríguez">
+                        </div>
+                        <div class="col-md-12">
                             <label class="form-label required">Correo Electrónico</label>
                             <input type="email" name="email" class="form-control" placeholder="correo@ejemplo.com">
                         </div>
@@ -162,7 +166,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <label class="form-label">Teléfono</label>
                             <input type="text" name="phone" class="form-control" placeholder="1234567">
                         </div>
@@ -209,7 +213,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger ms-auto fw-bold" data-bs-dismiss="modal">CERRAR</button>
-                    <button type="submit" class="btn btn-primary fw-bold" id="btn-save-user">GUARDAR CAMBIOS</button>
+                    <button type="submit" class="btn btn-success fw-bold" id="btn-save-user">GUARDAR CAMBIOS</button>
                 </div>
             </form>
         </div>

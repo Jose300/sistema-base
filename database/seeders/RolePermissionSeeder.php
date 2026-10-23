@@ -83,6 +83,37 @@ class RolePermissionSeeder extends Seeder
                 'module' => 'Permisos',
                 'description' => 'Activar o desactivar asignación de permisos a roles'
             ],
+
+            // Auditoría (2)
+            [
+                'name' => 'ver-auditoria',
+                'module' => 'Auditoría',
+                'description' => 'Consultar registro de auditoría, trazabilidad y triggers de cambios'
+            ],
+            [
+                'name' => 'exportar-auditoria',
+                'module' => 'Auditoría',
+                'description' => 'Exportar historial de auditoría a formato Excel'
+            ],
+
+            // Log de Errores (2)
+            [
+                'name' => 'ver-logs',
+                'module' => 'Log de Errores',
+                'description' => 'Consultar registro y monitoreo de excepciones y errores del sistema'
+            ],
+            [
+                'name' => 'gestionar-logs',
+                'module' => 'Log de Errores',
+                'description' => 'Modificar estado de resolución y notas de análisis de errores'
+            ],
+
+            // Info. Sistema (1)
+            [
+                'name' => 'ver-sistema',
+                'module' => 'Info. Sistema',
+                'description' => 'Consultar datos técnicos, versiones del entorno y estado del servidor'
+            ],
         ];
 
         // Eliminar permisos antiguos que no pertenezcan a los módulos base
@@ -125,6 +156,8 @@ class RolePermissionSeeder extends Seeder
         $admin1 = User::firstOrCreate(
             ['email' => 'jose.perera74@gmail.com'],
             [
+                'first_name' => 'Jose Alexander',
+                'last_name' => 'Perera Guevara',
                 'name' => 'Jose Alexander Perera Guevara',
                 'password' => bcrypt('15488395'),
                 'status' => 'Activo',
@@ -135,6 +168,8 @@ class RolePermissionSeeder extends Seeder
         $admin2 = User::firstOrCreate(
             ['email' => 'jesus.cardielg@gmail.com'],
             [
+                'first_name' => 'Jesus',
+                'last_name' => 'Cardiel',
                 'name' => 'Jesus Cardiel',
                 'password' => bcrypt('15201838'),
                 'status' => 'Activo',

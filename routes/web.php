@@ -27,5 +27,27 @@ Route::middleware('auth')->group(function () {
         Route::resource('roles', App\Http\Controllers\Config\RolesController::class)->names('roles');
         Route::get('/permisos', [App\Http\Controllers\Config\PermissionsController::class, 'index'])->name('permisos.index');
         Route::post('/permisos/toggle', [App\Http\Controllers\Config\PermissionsController::class, 'toggle'])->name('permisos.toggle');
+        // Auditoría
+        Route::get('/auditoria', [App\Http\Controllers\Config\AuditController::class, 'index'])->name('auditorias.index');
+        Route::get('/auditoria/exportar', [App\Http\Controllers\Config\AuditController::class, 'export'])->name('auditorias.export');
+        // Redirección amigable por si se ingresa la URL anterior de auditoria/errores
+        Route::redirect('/auditoria/errores', '/configuracion/log-errores');
+        Route::get('/auditoria/{auditoria}', [App\Http\Controllers\Config\AuditController::class, 'show'])->name('auditorias.show');
+
+        // Log de Errores (Módulo independiente fuera de Auditoría)
+        Route::prefix('log-errores')->name('log-errores.')->group(function () {
+            Route::get('/', [App\Http\Controllers\Config\ErrorLogController::class, 'index'])->name('index');
+            Route::get('/exportar', [App\Http\Controllers\Config\ErrorLogController::class, 'export'])->name('export');
+            Route::post('/simular', [App\Http\Controllers\Config\ErrorLogController::class, 'simulate'])->name('simulate');
+            Route::post('/limpiar', [App\Http\Controllers\Config\ErrorLogController::class, 'clear'])->name('clear');
+            Route::get('/{error}', [App\Http\Controllers\Config\ErrorLogController::class, 'show'])->name('show');
+            Route::put('/{error}/estado', [App\Http\Controllers\Config\ErrorLogController::class, 'updateEstado'])->name('update-estado');
+            Route::delete('/{error}', [App\Http\Controllers\Config\ErrorLogController::class, 'destroy'])->name('destroy');
+        });
+
+        // Información del Sistema
+        Route::get('/sistema', [App\Http\Controllers\Config\SystemInfoController::class, 'index'])
+            ->name('sistema.index')
+            ->middleware('can:ver-sistema');
     });
 });
