@@ -26,141 +26,6 @@
 <div class="page-body">
     <div class="container-xl">
 
-        <!-- Stat Cards -->
-        <div class="row row-cards g-3 mb-4">
-            <div class="col-sm-6 col-lg-3">
-                <div class="card border-0 shadow-sm h-100">
-                    <div class="card-body p-3">
-                        <div class="d-flex align-items-center">
-                            <span class="avatar avatar-md rounded-circle bg-primary text-white me-3 shadow-sm" style="width: 48px; height: 48px;">
-                                <i class="ti ti-database fs-2"></i>
-                            </span>
-                            <div>
-                                <div class="h1 mb-0 fw-bold text-dark">{{ $totalEventos }}</div>
-                                <div class="text-secondary small fw-bold text-uppercase" style="letter-spacing: 0.04em;">TOTAL EVENTOS</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6 col-lg-3">
-                <div class="card border-0 shadow-sm h-100">
-                    <div class="card-body p-3">
-                        <div class="d-flex align-items-center">
-                            <span class="avatar avatar-md rounded-circle bg-success text-white me-3 shadow-sm" style="width: 48px; height: 48px;">
-                                <i class="ti ti-plus fs-2"></i>
-                            </span>
-                            <div>
-                                <div class="h1 mb-0 fw-bold text-success">{{ $totalCreaciones }}</div>
-                                <div class="text-secondary small fw-bold text-uppercase" style="letter-spacing: 0.04em;">CREACIONES (INSERT)</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6 col-lg-3">
-                <div class="card border-0 shadow-sm h-100">
-                    <div class="card-body p-3">
-                        <div class="d-flex align-items-center">
-                            <span class="avatar avatar-md rounded-circle bg-warning text-white me-3 shadow-sm" style="width: 48px; height: 48px;">
-                                <i class="ti ti-edit fs-2"></i>
-                            </span>
-                            <div>
-                                <div class="h1 mb-0 fw-bold text-warning">{{ $totalModificaciones }}</div>
-                                <div class="text-secondary small fw-bold text-uppercase" style="letter-spacing: 0.04em;">MODIFICACIONES</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6 col-lg-3">
-                <div class="card border-0 shadow-sm h-100">
-                    <div class="card-body p-3">
-                        <div class="d-flex align-items-center">
-                            <span class="avatar avatar-md rounded-circle bg-danger text-white me-3 shadow-sm" style="width: 48px; height: 48px;">
-                                <i class="ti ti-trash fs-2"></i>
-                            </span>
-                            <div>
-                                <div class="h1 mb-0 fw-bold text-danger">{{ $totalEliminaciones }}</div>
-                                <div class="text-secondary small fw-bold text-uppercase" style="letter-spacing: 0.04em;">ELIMINACIONES</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Filter Card -->
-        <div class="card border-0 shadow-sm mb-4">
-            <div class="card-body p-3 p-md-4">
-                <form id="filter-form" action="{{ route('auditorias.index') }}" method="GET">
-                    <div class="row g-3 align-items-end">
-                        <div class="col-md-3 col-sm-6">
-                            <label class="form-label text-secondary fw-bold small text-uppercase mb-1">
-                                <i class="ti ti-folder me-1 text-primary"></i> Módulo
-                            </label>
-                            <select name="modulo" class="form-select">
-                                <option value="all">Todos los Módulos</option>
-                                @foreach($modulos as $mod)
-                                    <option value="{{ $mod }}" {{ request('modulo') === $mod ? 'selected' : '' }}>{{ $mod }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="col-md-2 col-sm-6">
-                            <label class="form-label text-secondary fw-bold small text-uppercase mb-1">
-                                <i class="ti ti-activity me-1 text-primary"></i> Acción
-                            </label>
-                            <select name="accion" class="form-select">
-                                <option value="all">Todas</option>
-                                @foreach($acciones as $key => $label)
-                                    <option value="{{ $key }}" {{ request('accion') === $key ? 'selected' : '' }}>{{ $label }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="col-md-3 col-sm-6">
-                            <label class="form-label text-secondary fw-bold small text-uppercase mb-1">
-                                <i class="ti ti-user me-1 text-primary"></i> Usuario
-                            </label>
-                            <select name="user_id" class="form-select">
-                                <option value="all">Todos los Usuarios</option>
-                                @foreach($usuarios as $usr)
-                                    <option value="{{ $usr->id }}" {{ (string) request('user_id') === (string) $usr->id ? 'selected' : '' }}>{{ $usr->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="col-md-2 col-sm-6">
-                            <label class="form-label text-secondary fw-bold small text-uppercase mb-1">
-                                <i class="ti ti-calendar me-1 text-primary"></i> Desde
-                            </label>
-                            <input type="date" name="desde" class="form-control" value="{{ request('desde') }}">
-                        </div>
-
-                        <div class="col-md-2 col-sm-6">
-                            <label class="form-label text-secondary fw-bold small text-uppercase mb-1">
-                                <i class="ti ti-calendar me-1 text-primary"></i> Hasta
-                            </label>
-                            <input type="date" name="hasta" class="form-control" value="{{ request('hasta') }}">
-                        </div>
-
-                        <div class="col-12 text-end mt-3">
-                            <a href="{{ route('auditorias.index') }}" class="btn btn-outline-secondary me-2">
-                                <i class="ti ti-rotate me-1"></i> Limpiar Filtros
-                            </a>
-                            <button type="submit" class="btn btn-primary px-3 fw-bold">
-                                <i class="ti ti-filter me-1"></i> Filtrar Registros
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-
         <!-- Data Table Card -->
         <div class="card border-0 shadow-sm">
             <div class="card-body border-bottom py-3">
@@ -181,17 +46,11 @@
                     </div>
 
                     <div class="col-auto ms-auto d-flex align-items-center">
-                        <a href="{{ route('auditorias.export', request()->all()) }}" class="btn btn-outline-success btn-sm me-3 fw-bold">
+                        <a href="{{ route('auditorias.export', request()->only(['search', 'per_page'])) }}" class="btn btn-outline-success btn-sm me-3 fw-bold">
                             <i class="ti ti-file-spreadsheet me-1 fs-3"></i> Exportar a Excel
                         </a>
 
                         <form action="{{ route('auditorias.index') }}" method="GET" class="d-flex align-items-center m-0">
-                            {{-- Preservar filtros actuales en búsqueda rápida --}}
-                            @if(request('modulo')) <input type="hidden" name="modulo" value="{{ request('modulo') }}"> @endif
-                            @if(request('accion')) <input type="hidden" name="accion" value="{{ request('accion') }}"> @endif
-                            @if(request('user_id')) <input type="hidden" name="user_id" value="{{ request('user_id') }}"> @endif
-                            @if(request('desde')) <input type="hidden" name="desde" value="{{ request('desde') }}"> @endif
-                            @if(request('hasta')) <input type="hidden" name="hasta" value="{{ request('hasta') }}"> @endif
                             @if(request('per_page')) <input type="hidden" name="per_page" value="{{ request('per_page') }}"> @endif
 
                             <div class="d-flex align-items-center">

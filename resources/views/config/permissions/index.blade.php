@@ -19,30 +19,22 @@
 <div class="page-body">
     <div class="container-xl">
         <!-- Banner Informativo Rol Develop -->
-        <div class="card border-0 shadow-sm mb-4" style="background-color: #1e2227; border-radius: 8px;">
+        <div class="card bg-white border-0 shadow-sm mb-4" style="border-radius: 8px;">
             <div class="card-body p-3 p-md-4">
                 <div class="d-flex align-items-start gap-3">
-                    <div class="bg-warning text-dark rounded-circle p-2 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 44px; height: 44px;">
-                        <i class="ti ti-shield fs-2"></i>
+                    <div class="bg-primary-lt text-primary rounded-circle p-2 d-flex align-items-center justify-content-center flex-shrink-0" style="width: 44px; height: 44px;">
+                        <i class="ti ti-info-circle fs-2"></i>
                     </div>
                     <div class="flex-grow-1">
                         <div class="d-flex flex-wrap align-items-center gap-2 mb-1">
-                            <span class="fw-bold fs-3 text-white">Rol Develop • Super Administrador</span>
+                            <span class="fw-bold fs-3 text-dark">Información</span>
                             <span class="badge bg-warning text-dark fw-bold px-2 py-1" style="font-size: 0.72rem; letter-spacing: 0.05em;">
                                 <i class="ti ti-crown me-1"></i> CONTROL TOTAL
                             </span>
-                            <span class="badge bg-success text-white fw-bold px-2 py-1" style="font-size: 0.72rem; letter-spacing: 0.05em;">
-                                {{ $developPermissionsCount }} / {{ $totalPermissionsCount }} PERMISOS ACTIVOS
-                            </span>
                         </div>
-                        <p class="text-secondary small mb-2 text-white-50" style="font-size: 0.82rem; line-height: 1.4; color: #94a3b8 !important;">
+                        <p class="text-secondary small mb-0" style="font-size: 0.85rem; line-height: 1.5;">
                             El rol Develop posee acceso y control total e irrevocable sobre todas las funciones y módulos del sistema. Su configuración se encuentra permanentemente bloqueada para garantizar la estabilidad e integridad de la plataforma.
                         </p>
-                        <div>
-                            <span class="badge bg-transparent border border-warning text-warning fw-bold px-3 py-2 d-inline-flex align-items-center" style="font-size: 0.75rem; letter-spacing: 0.05em;">
-                                <i class="ti ti-lock me-1"></i> EDICIÓN DESHABILITADA
-                            </span>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -101,6 +93,7 @@
                                 'Log de Errores' => 'danger',
                                 'Sistema' => 'teal',
                                 'Info. Sistema' => 'teal',
+                                'Identidad del Sistema' => 'pink',
                             ];
                         @endphp
 

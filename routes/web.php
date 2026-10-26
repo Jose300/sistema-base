@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [LoginController::class, 'showLoginForm'])->name('login')->middleware('guest');
 
 Route::middleware('guest')->group(function () {
+    Route::get('/login', [LoginController::class, 'showLoginForm']);
     Route::post('/', [LoginController::class, 'login']);
     Route::post('/login', [LoginController::class, 'login']);
 });
@@ -49,5 +50,18 @@ Route::middleware('auth')->group(function () {
         Route::get('/sistema', [App\Http\Controllers\Config\SystemInfoController::class, 'index'])
             ->name('sistema.index')
             ->middleware('can:ver-sistema');
+
+        // Identidad del Sistema (Logos, Favicon y Nombre)
+        Route::prefix('identidad')->name('identidad.')->group(function () {
+            Route::get('/', [App\Http\Controllers\Config\SystemIdentityController::class, 'index'])
+                ->name('index')
+                ->middleware('can:ver-identidad');
+            Route::post('/', [App\Http\Controllers\Config\SystemIdentityController::class, 'update'])
+                ->name('update')
+                ->middleware('can:editar-identidad');
+            Route::delete('/asset/{type}', [App\Http\Controllers\Config\SystemIdentityController::class, 'destroyAsset'])
+                ->name('destroy-asset')
+                ->middleware('can:editar-identidad');
+        });
     });
 });

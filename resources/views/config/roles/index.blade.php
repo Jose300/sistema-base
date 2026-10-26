@@ -60,7 +60,7 @@
                             <td class="text-center">{{ $role->created_at->format('d/m/Y') }}</td>
                             <td class="text-center">
                                 @if(strtolower($role->name) === 'develop')
-                                    <span class="badge bg-warning-lt text-warning fw-bold px-2 py-1" title="Rol del sistema protegido">
+                                    <span class="badge bg-primary text-white fw-bold px-2 py-1" title="Rol del sistema protegido">
                                         <i class="ti ti-lock me-1"></i> SISTEMA 🔒
                                     </span>
                                 @else

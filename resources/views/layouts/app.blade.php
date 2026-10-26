@@ -4,8 +4,12 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>@yield('title', 'Dashboard') - {{ config('app.name') }}</title>
+    <title>@yield('title', 'Dashboard') - {{ setting('app_name', config('app.name', 'Sistema Base')) }}</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    @php
+        $faviconAsset = setting('favicon');
+    @endphp
+    <link rel="shortcut icon" href="{{ $faviconAsset ? asset('storage/' . $faviconAsset) : asset('favicon.ico') }}" type="image/x-icon"/>
     
     <!-- CSS files -->
     <link href="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/css/tabler.min.css" rel="stylesheet"/>
@@ -50,6 +54,23 @@
         .navbar-vertical .nav-link-icon i {
             transform: none !important;
             transition: none !important;
+        }
+
+        /* Asegurar dimensiones estrictas y contención del logotipo en el navbar lateral */
+        .navbar-vertical .navbar-brand {
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+            max-width: 100%;
+            overflow: hidden;
+        }
+        .navbar-vertical .navbar-brand a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            max-width: 100%;
         }
 
         /* Estándar del sistema para SweetAlert2: Botones de acción en verde (#2fb344) y cancelar en rojo (#d63939) */
@@ -113,7 +134,7 @@
                 </button>
                 <div class="navbar-brand">
                     <a href="{{ url('/') }}">
-                        @include('components.logo')
+                        @include('components.logo', ['type' => 'navbar'])
                     </a>
                 </div>
                 
@@ -135,7 +156,7 @@
                                 <span class="nav-link-title">Mi Perfil</span>
                             </a>
                         </li>
-                        @canany(['ver-usuarios', 'ver-roles', 'ver-permisos', 'ver-auditoria', 'ver-logs', 'ver-sistema'])
+                        @canany(['ver-usuarios', 'ver-roles', 'ver-permisos', 'ver-identidad', 'ver-auditoria', 'ver-logs', 'ver-sistema'])
                         <li class="nav-item dropdown {{ request()->is('configuracion*') ? 'active' : '' }}">
                             <a class="nav-link dropdown-toggle" href="#navbar-config" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="false">
                                 <span class="nav-link-icon">
@@ -170,6 +191,15 @@
                                                 <i class="ti ti-key" style="color: #f59f00 !important;"></i>
                                             </span>
                                             Permisos
+                                        </a>
+                                        @endcan
+
+                                        @can('ver-identidad')
+                                        <a class="dropdown-item {{ request()->is('configuracion/identidad*') ? 'active' : '' }}" href="{{ route('identidad.index') }}">
+                                            <span class="nav-link-icon d-md-none d-lg-inline-block me-2">
+                                                <i class="ti ti-palette" style="color: #d63384 !important;"></i>
+                                            </span>
+                                            Identidad del Sistema
                                         </a>
                                         @endcan
 
@@ -299,7 +329,7 @@
                             <ul class="list-inline list-inline-dots mb-0">
                                 <li class="list-inline-item">
                                     Copyright &copy; {{ date('Y') }}
-                                    <a href="." class="link-secondary">Sistema Base</a>.
+                                    <a href="." class="link-secondary">{{ setting('app_name', config('app.name', 'Sistema Base')) }}</a>.
                                     Todos los derechos reservados.
                                 </li>
                             </ul>

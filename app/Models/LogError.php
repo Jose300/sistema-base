@@ -102,7 +102,7 @@ class LogError extends Model
             ],
             'WARNING' => [
                 'label' => 'WARNING',
-                'class' => 'bg-warning-lt text-warning-fg',
+                'class' => 'bg-warning-lt text-warning',
                 'icon' => 'ti ti-alert-triangle',
             ],
             'NOTICE' => [

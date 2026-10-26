@@ -109,7 +109,7 @@ class Auditoria extends Model
             ],
             'ACTUALIZAR' => [
                 'label' => 'Modificación',
-                'class' => 'bg-yellow-lt text-yellow-fg',
+                'class' => 'bg-blue-lt text-blue',
                 'icon' => 'ti ti-edit',
             ],
             'CAMBIO_ESTADO' => [

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
@@ -27,8 +28,18 @@ class LoginController extends Controller
             'password' => ['required'],
         ]);
 
-        if (Auth::attempt($credentials, $request->boolean('remember'))) {
+        $remember = $request->boolean('remember');
+
+        if (Auth::attempt($credentials, $remember)) {
             $request->session()->regenerate();
+
+            if ($remember) {
+                // Guardar correo en cookie por 1 año para recordar al usuario en este equipo
+                Cookie::queue('remember_email', $request->email, 60 * 24 * 365);
+            } else {
+                // Si no se marca recordar, remover la cookie
+                Cookie::queue(Cookie::forget('remember_email'));
+            }
 
             return redirect()->intended('/dashboard');
         }

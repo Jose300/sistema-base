@@ -4,7 +4,12 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>@yield('title', 'Sistema Base') - {{ config('app.name') }}</title>
+    @php
+        $appName = setting('app_name', config('app.name', 'Sistema Base'));
+        $faviconAsset = setting('favicon');
+    @endphp
+    <title>@yield('title', 'Iniciar Sesión') - {{ $appName }}</title>
+    <link rel="shortcut icon" href="{{ $faviconAsset ? asset('storage/' . $faviconAsset) : asset('favicon.ico') }}" type="image/x-icon"/>
     
     <!-- CSS files -->
     <link href="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/css/tabler.min.css" rel="stylesheet"/>
@@ -29,7 +34,7 @@
         <div class="container container-tight py-4">
             <div class="text-center mb-4">
                 <a href="." class="navbar-brand navbar-brand-autodark">
-                    @include('components.logo')
+                    @include('components.logo', ['type' => 'login'])
                 </a>
             </div>
             @yield('content')

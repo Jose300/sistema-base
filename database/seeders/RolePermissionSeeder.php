@@ -114,6 +114,18 @@ class RolePermissionSeeder extends Seeder
                 'module' => 'Info. Sistema',
                 'description' => 'Consultar datos técnicos, versiones del entorno y estado del servidor'
             ],
+
+            // Identidad del Sistema (2)
+            [
+                'name' => 'ver-identidad',
+                'module' => 'Identidad del Sistema',
+                'description' => 'Consultar logotipos, favicon y nombre del sistema'
+            ],
+            [
+                'name' => 'editar-identidad',
+                'module' => 'Identidad del Sistema',
+                'description' => 'Modificar logotipos, favicon y nombre del sistema'
+            ],
         ];
 
         // Eliminar permisos antiguos que no pertenezcan a los módulos base
