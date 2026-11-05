@@ -25,35 +25,57 @@
         body {
             font-feature-settings: "cv03", "cv04", "cv11";
         }
-        /* Estilo para opción activa en el menú lateral */
+
+        /* Estructura base uniforme para opciones activas e inactivas del menú lateral */
+        .navbar-vertical .navbar-nav .nav-link,
+        .navbar-vertical .dropdown-menu .dropdown-item {
+            margin-left: 0.5rem !important;
+            margin-right: 0.5rem !important;
+            width: calc(100% - 1rem) !important;
+            border-radius: 6px !important;
+            box-sizing: border-box !important;
+            transition: background-color 0.15s ease, color 0.15s ease !important;
+            transform: none !important;
+        }
+
+        /* Estilo visual exclusivo para la opción activa (sin alterar márgenes ni posición) */
         .navbar-vertical .navbar-nav .nav-item.active > .nav-link,
         .navbar-vertical .navbar-nav .nav-link.active,
         .navbar-vertical .dropdown-menu .dropdown-item.active {
             background-color: #e0f2fe !important;
             color: #0284c7 !important;
-            font-weight: 600;
-            border-radius: 6px;
-            margin-left: 0.5rem;
-            margin-right: 0.5rem;
+            font-weight: 600 !important;
         }
 
-        /* Iconos del menú lateral: estáticos y sin desplazamientos al hacer hover */
-        .navbar-vertical .nav-link .nav-link-icon i,
-        .navbar-vertical .dropdown-item .nav-link-icon i {
-            font-size: 1.15rem;
-            vertical-align: middle;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .navbar-vertical .nav-link,
-        .navbar-vertical .dropdown-item,
-        .navbar-vertical .nav-link:hover,
-        .navbar-vertical .dropdown-item:hover,
+        /* Iconos del menú lateral: dimensiones fijas y alineación vertical estricta */
         .navbar-vertical .nav-link-icon,
-        .navbar-vertical .nav-link-icon i {
+        .navbar-vertical .dropdown-item .nav-link-icon {
+            width: 1.5rem !important;
+            min-width: 1.5rem !important;
+            text-align: center !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            margin-right: 0.5rem !important;
             transform: none !important;
             transition: none !important;
+        }
+
+        .navbar-vertical .nav-link .nav-link-icon i,
+        .navbar-vertical .dropdown-item .nav-link-icon i {
+            font-size: 1.15rem !important;
+            vertical-align: middle !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            transform: none !important;
+            transition: none !important;
+        }
+
+        .navbar-vertical .nav-link:hover,
+        .navbar-vertical .dropdown-item:hover {
+            transform: none !important;
+            transition: background-color 0.15s ease, color 0.15s ease !important;
         }
 
         /* Asegurar dimensiones estrictas y contención del logotipo en el navbar lateral */
@@ -194,12 +216,12 @@
                                         </a>
                                         @endcan
 
-                                        @can('ver-identidad')
-                                        <a class="dropdown-item {{ request()->is('configuracion/identidad*') ? 'active' : '' }}" href="{{ route('identidad.index') }}">
+                                        @can('ver-conexiones')
+                                        <a class="dropdown-item {{ request()->is('configuracion/conexiones*') ? 'active' : '' }}" href="{{ route('conexiones.index') }}">
                                             <span class="nav-link-icon d-md-none d-lg-inline-block me-2">
-                                                <i class="ti ti-palette" style="color: #d63384 !important;"></i>
+                                                <i class="ti ti-devices" style="color: #0ca678 !important;"></i>
                                             </span>
-                                            Identidad del Sistema
+                                            Conexiones
                                         </a>
                                         @endcan
 
@@ -221,21 +243,21 @@
                                         </a>
                                         @endcan
 
+                                        @can('ver-identidad')
+                                        <a class="dropdown-item {{ request()->is('configuracion/identidad*') ? 'active' : '' }}" href="{{ route('identidad.index') }}">
+                                            <span class="nav-link-icon d-md-none d-lg-inline-block me-2">
+                                                <i class="ti ti-palette" style="color: #d63384 !important;"></i>
+                                            </span>
+                                            Identidad del Sistema
+                                        </a>
+                                        @endcan
+
                                         @can('ver-sistema')
                                         <a class="dropdown-item {{ request()->is('configuracion/sistema*') ? 'active' : '' }}" href="{{ route('sistema.index') }}">
                                             <span class="nav-link-icon d-md-none d-lg-inline-block me-2">
                                                 <i class="ti ti-info-circle" style="color: #0284c7 !important;"></i>
                                             </span>
                                             Info. Sistema
-                                        </a>
-                                        @endcan
-
-                                        @can('ver-conexiones')
-                                        <a class="dropdown-item {{ request()->is('configuracion/conexiones*') ? 'active' : '' }}" href="{{ route('conexiones.index') }}">
-                                            <span class="nav-link-icon d-md-none d-lg-inline-block me-2">
-                                                <i class="ti ti-devices" style="color: #0ca678 !important;"></i>
-                                            </span>
-                                            Conexiones
                                         </a>
                                         @endcan
                                     </div>
