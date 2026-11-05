@@ -7,12 +7,12 @@
 
     // Dimensiones condicionadas estrictas para garantizar proporciones perfectas
     $isLogin = ($type === 'login');
-    $maxHeight = $isLogin ? '65px' : '42px';
-    $maxWidth  = $isLogin ? '280px' : '185px';
-    $iconSize  = $isLogin ? '44px' : '36px';
-    $svgSize   = $isLogin ? '30' : '24';
-    $fontSize  = $isLogin ? 'h1' : 'h2';
-    $textLimit = $isLogin ? '260px' : '140px';
+    $maxHeight = $maxHeight ?? ($isLogin ? '110px' : '42px');
+    $maxWidth  = $maxWidth  ?? ($isLogin ? '340px' : '185px');
+    $iconSize  = $isLogin ? '50px' : '36px';
+    $svgSize   = $isLogin ? '34' : '24';
+    $fontSize  = $isLogin ? 'fs-1' : 'h2';
+    $textLimit = $isLogin ? '320px' : '140px';
 @endphp
 
 @if($customLogo && \Illuminate\Support\Facades\Storage::disk('public')->exists($customLogo))

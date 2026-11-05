@@ -5,6 +5,11 @@
 @section('content')
 <div class="card card-md border-0 shadow-sm">
     <div class="card-body">
+        <div class="text-center mb-4">
+            <a href="." class="navbar-brand navbar-brand-autodark d-inline-block">
+                @include('components.logo', ['type' => 'login'])
+            </a>
+        </div>
         <h2 class="h2 text-center mb-4">Ingresa a tu cuenta</h2>
         <form action="{{ route('login') }}" method="post" autocomplete="on" id="login-form" novalidate>
             @csrf
