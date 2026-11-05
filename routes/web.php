@@ -63,5 +63,24 @@ Route::middleware('auth')->group(function () {
                 ->name('destroy-asset')
                 ->middleware('can:editar-identidad');
         });
+
+        // Módulo de Conexiones y Sesiones al Sistema
+        Route::prefix('conexiones')->name('conexiones.')->group(function () {
+            Route::middleware('permission:ver-conexiones')->group(function () {
+                Route::get('/', [App\Http\Controllers\Config\ConexionController::class, 'index'])->name('index');
+                Route::get('/{conexion}', [App\Http\Controllers\Config\ConexionController::class, 'show'])->whereNumber('conexion')->name('show');
+            });
+
+            Route::get('/export-excel', [App\Http\Controllers\Config\ConexionController::class, 'exportExcel'])
+                ->middleware('permission:descargar-excel-conexiones')->name('export-excel');
+
+            Route::post('/{conexion}/cerrar', [App\Http\Controllers\Config\ConexionController::class, 'cerrarSesionRemota'])
+                ->middleware('permission:gestionar-conexiones')->whereNumber('conexion')->name('cerrar');
+
+            Route::middleware('permission:eliminar-conexiones')->group(function () {
+                Route::delete('/{conexion}', [App\Http\Controllers\Config\ConexionController::class, 'destroy'])->whereNumber('conexion')->name('destroy');
+                Route::post('/limpiar', [App\Http\Controllers\Config\ConexionController::class, 'limpiar'])->name('limpiar');
+            });
+        });
     });
 });

@@ -126,6 +126,28 @@ class RolePermissionSeeder extends Seeder
                 'module' => 'Identidad del Sistema',
                 'description' => 'Modificar logotipos, favicon y nombre del sistema'
             ],
+
+            // Conexiones (4)
+            [
+                'name' => 'ver-conexiones',
+                'module' => 'Conexiones',
+                'description' => 'Consultar registro de inicios de sesión y conexiones de usuarios'
+            ],
+            [
+                'name' => 'gestionar-conexiones',
+                'module' => 'Conexiones',
+                'description' => 'Desconectar y cerrar sesiones activas de usuarios remotamente'
+            ],
+            [
+                'name' => 'eliminar-conexiones',
+                'module' => 'Conexiones',
+                'description' => 'Eliminar registros y depurar historial de conexiones del sistema'
+            ],
+            [
+                'name' => 'descargar-excel-conexiones',
+                'module' => 'Conexiones',
+                'description' => 'Exportar reporte de conexiones y sesiones a Excel o CSV'
+            ],
         ];
 
         // Eliminar permisos antiguos que no pertenezcan a los módulos base

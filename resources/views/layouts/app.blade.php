@@ -156,7 +156,7 @@
                                 <span class="nav-link-title">Mi Perfil</span>
                             </a>
                         </li>
-                        @canany(['ver-usuarios', 'ver-roles', 'ver-permisos', 'ver-identidad', 'ver-auditoria', 'ver-logs', 'ver-sistema'])
+                        @canany(['ver-usuarios', 'ver-roles', 'ver-permisos', 'ver-identidad', 'ver-auditoria', 'ver-logs', 'ver-sistema', 'ver-conexiones'])
                         <li class="nav-item dropdown {{ request()->is('configuracion*') ? 'active' : '' }}">
                             <a class="nav-link dropdown-toggle" href="#navbar-config" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button" aria-expanded="false">
                                 <span class="nav-link-icon">
@@ -227,6 +227,15 @@
                                                 <i class="ti ti-info-circle" style="color: #0284c7 !important;"></i>
                                             </span>
                                             Info. Sistema
+                                        </a>
+                                        @endcan
+
+                                        @can('ver-conexiones')
+                                        <a class="dropdown-item {{ request()->is('configuracion/conexiones*') ? 'active' : '' }}" href="{{ route('conexiones.index') }}">
+                                            <span class="nav-link-icon d-md-none d-lg-inline-block me-2">
+                                                <i class="ti ti-devices" style="color: #0ca678 !important;"></i>
+                                            </span>
+                                            Conexiones
                                         </a>
                                         @endcan
                                     </div>

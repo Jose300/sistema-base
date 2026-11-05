@@ -97,6 +97,27 @@ class User extends Authenticatable
     }
 
     /**
+     * Alias en español para compatibilidad de vistas y módulos.
+     */
+    public function getNombreCortoAttribute(): string
+    {
+        return $this->short_name;
+    }
+
+    public function getInicialesAttribute(): string
+    {
+        return $this->initials;
+    }
+
+    /**
+     * Relación con el historial de conexiones al sistema.
+     */
+    public function conexiones(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Conexion::class, 'user_id');
+    }
+
+    /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>
